@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/activity_exercise"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="es.tta.kirolApp.LanguageActivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/botonEspana"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@mipmap/bandera_espana"
+            android:clickable="true"
+            android:layout_marginBottom="15dp"
+            />
+        <ImageView
+            android:id="@+id/botonCatalunia"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@mipmap/bandera_catalana"
+            android:clickable="true"
+            android:layout_marginBottom="15dp"
+            />
+        <ImageView
+            android:id="@+id/botonInglaterra"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@mipmap/bandera_inglaterra"
+            android:clickable="true"
+            android:layout_marginBottom="15dp"
+            />
+        <ImageView
+            android:id="@+id/botonEuskera"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@mipmap/bandera_euskadi"
+            android:clickable="true"
+            />
+
+
+
+    </LinearLayout>
+
+
+</ScrollView>

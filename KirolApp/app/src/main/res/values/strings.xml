@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">KirolApp</string>
+    <string name="cabeceraContinentes">Continentes</string>
+    <string name="cabeceraDeporte">Deporte</string>
+    <!--Botones toolBar inferior-->
+    <string name="home">Home</string>
+    <string name="toContinentes">Continentes</string>
+    <string name="toExit">Salir</string>
+    <!--Campos de acceso-->
+    <string name="apodo">Apodo</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="accederBoton">Acceder</string>
+    <string name="bienvenida">Bienvenid@</string>
+    <!--Campos de registro-->
+    <string name="nombreUsuario">Nombre</string>
+    <string name="pwd">Introduce password</string>
+    <string name="pwdRepe">Repita password</string>
+    <string name="apellido1">1º Apellido</string>
+    <string name="apellido2">2º Apellido</string>
+    <string name="email">Email</string>
+    <string name="sacaFoto">Sacar Foto</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="volver">Volver</string>
+    <!--Navegacion por opciones -->
+    <string name="seleccionContinente">Selecciona continente</string>
+    <string name="seleccionPais">Selecciona pais</string>
+    <string name="seleccionDeporte">Selecciona deporte</string>
+    <string name="cargaDescripcionBoton">Carga descripcion</string>
+    <string name="cargaAdaptacionBoton">Carga adaptacion</string>
+    <string name="foroBajo">Foro nivel bajo</string>
+    <string name="foroMedio">Foro nivel medio</string>
+    <string name="foroAlto">Foro nivel alto</string>
+
+    <!-- Alertas o advertencias -->
+    <string name="wifiAdvice">Se recomienda activar Wifi para continuar</string>
+    <string name="errorRegistro">No se pudo completar el registro</string>
+    <string name="errorAcceso">Datos incorrectos</string>
+
+
+</resources>
