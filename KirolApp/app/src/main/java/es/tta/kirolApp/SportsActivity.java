@@ -1,0 +1,105 @@
+package es.tta.kirolApp;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+
+import com.example.docencia.kirolApp.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import es.tta.kirolApp.model.Deporte;
+import es.tta.kirolApp.model.NetworkRequests;
+import es.tta.kirolApp.model.Pais;
+
+public class SportsActivity extends AppCompatActivity {
+    List<Pais> listaPaises;
+    List<Deporte> listaDeportes;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sports);
+        //Poblar spinners
+        Spinner spPaises = (Spinner) findViewById(R.id.paisSpinner);
+        Spinner spDeportes = (Spinner) findViewById(R.id.deporteSpinner);
+        rellenaSpiner(spPaises,0);
+        rellenaSpiner(spDeportes,1);
+
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.grupoContinentes);
+        radioGroup.setVisibility(View.VISIBLE);
+        Button boton = (Button) findViewById(R.id.botonEligeContinente);
+        boton.setVisibility(View.VISIBLE);
+    }
+
+    public void eligeContinente(View view){
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.grupoContinentes);
+        radioGroup.setVisibility(View.GONE);
+        Button boton = (Button) findViewById(R.id.botonEligeContinente);
+        boton.setVisibility(View.GONE);
+        Button boton2 = (Button) findViewById(R.id.botonEligePais);
+        boton2.setVisibility(View.VISIBLE);
+    }
+    public void eligePais(View view){
+        Spinner paises = (Spinner) findViewById(R.id.paisSpinner);
+        paises.setVisibility(View.GONE);
+        Button boton = (Button) findViewById(R.id.botonEligePais);
+        boton.setVisibility(View.GONE);
+        Button boton2 = (Button) findViewById(R.id.botonEligePais);
+        boton2.setVisibility(View.VISIBLE);
+
+    }
+    public void eligeDeporte(View view){
+        Spinner deportes = (Spinner) findViewById(R.id.deporteSpinner);
+        deportes.setVisibility(View.GONE);
+        Button boton = (Button) findViewById(R.id.botonEligeDeporte);
+        boton.setVisibility(View.GONE);
+
+    }
+    private void rellenaSpiner(Spinner sp, int select) {
+        List<String> lista = new ArrayList<String>();
+        if(select == 0)
+        {
+            listaPaises = new ArrayList<Pais>();
+            listaPaises = NetworkRequests.cargaPaises("1");
+            for (Pais pais: listaPaises) {
+                String ctry = pais.getNombre();
+                lista.add(ctry);
+            }
+            ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, lista);
+            adaptador
+                    .setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+            sp.setAdapter(adaptador);
+        }
+        else
+        {
+            if(select == 1){
+                listaDeportes = new ArrayList<Deporte>();
+                listaDeportes = NetworkRequests.cargaListaDeportes(1);
+                for (Deporte deporte: listaDeportes) {
+                    String sport = deporte.getNombre();
+                    lista.add(sport);
+                }
+                ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this,
+                        android.R.layout.simple_spinner_item, lista);
+                adaptador
+                        .setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+                sp.setAdapter(adaptador);
+            }
+
+        }
+
+
+
+    }
+}

@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">KirolApp</string>
+    <string name="cabeceraContinentes">Continents</string>
+    <string name="cabeceraDeporte">Sport</string>
+    <!--Botones toolBar inferior-->
+    <string name="home">Home</string>
+    <string name="toContinentes">Continents</string>
+    <string name="toExit">Exit</string>
+    <!--Campos de acceso-->
+    <string name="apodo">NoName</string>
+    <string name="contrasena">Password</string>
+    <string name="accederBoton">Enter</string>
+    <string name="bienvenida">Wellcome</string>
+    <!--Campos de registro-->
+    <string name="nombreUsuario">Name</string>
+    <string name="pwd">Introduce password</string>
+    <string name="pwdRepe">Repeat password</string>
+    <string name="apellido1">second name</string>
+    <string name="apellido2">last name</string>
+    <string name="email">Email</string>
+    <string name="sacaFoto">Take picture</string>
+    <string name="registrarse">Register</string>
+    <string name="volver">Back</string>
+    <string name="claveNoCoincide">Passwords don\'t mach</string>
+    <string name="claveEsCorta">The password must have 4 or more characters</string>
+    <!--Navegacion por opciones -->
+    <string name="seleccionContinente">Select continent</string>
+    <string name="seleccionPais">Select country</string>
+    <string name="seleccionDeporte">Select sport</string>
+    <string name="cargaDescripcionBoton">Load description</string>
+    <string name="cargaAdaptacionBoton">Load adaptation</string>
+    <string name="foroBajo">Low Level Forum</string>
+    <string name="foroMedio">Mid Level Forum</string>
+    <string name="foroAlto">High Level Forum</string>
+
+    <!-- Alertas o advertencias -->
+    <string name="wifiAdvice">We advise use WiFi to continue</string>
+    <string name="errorRegistro">Could not complete the register</string>
+    <string name="errorAcceso">Incorrect data</string>
+
+    <!-- Continentes -->
+    <string name="europa">Europe</string>
+    <string name="africa">Afric</string>
+    <string name="oceania">Oceania</string>
+    <string name="america">America</string>
+    <string name="Asia">Asia</string>
+
+
+</resources>

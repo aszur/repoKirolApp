@@ -2,15 +2,13 @@ package es.tta.kirolApp.presentation;
 
 import android.os.Bundle;
 
-import es.tta.kirolApp.model.Exercise;
-
 /**
  * Created by asier on 23/12/16.
  */
 //¿Esta es la interfaz de acceso a business? Clase auxiliar para guardar datos de presentación.
 
 public class Data {
-    private final static String EXTRA_USER = "es.tta.example.user";
+    /*private final static String EXTRA_USER = "es.tta.example.user";
     private final static String EXTRA_AUTH = "es.tta.example.auth";
     private final static String EXTRA_NAME = "es.tta.example.name";
     private final static String EXTRA_EXERCISE_ID = "es.tta.example.exerciseId";
@@ -58,5 +56,5 @@ public class Data {
         exercise.setId(bundle.getInt(EXTRA_EXERCISE_ID));
         exercise.setWording(bundle.getString(EXTRA_EXERCISE_WORDING));
         return exercise;
-    }
+    }*/
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Pruebas Spinner XML -->
+    <string-array name="pruebaSp">
+        <item>Opc1</item>
+        <item>Opc2</item>
+        <item>Opc3</item>
+    </string-array>
+
+
+</resources>

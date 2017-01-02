@@ -23,19 +23,20 @@
             android:clickable="true"
             android:layout_marginBottom="15dp"
             />
-        <ImageView
-            android:id="@+id/botonCatalunia"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:src="@mipmap/bandera_catalana"
-            android:clickable="true"
-            android:layout_marginBottom="15dp"
-            />
+
         <ImageView
             android:id="@+id/botonInglaterra"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:src="@mipmap/bandera_inglaterra"
+            android:clickable="true"
+            android:layout_marginBottom="15dp"
+            />
+        <!--<ImageView
+            android:id="@+id/botonCatalunia"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@mipmap/bandera_catalana"
             android:clickable="true"
             android:layout_marginBottom="15dp"
             />
@@ -46,6 +47,7 @@
             android:src="@mipmap/bandera_euskadi"
             android:clickable="true"
             />
+        -->
 
 
 
