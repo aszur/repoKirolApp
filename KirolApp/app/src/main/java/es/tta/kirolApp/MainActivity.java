@@ -26,8 +26,12 @@ public class MainActivity extends AppCompatActivity {
         String login = ((EditText) findViewById(R.id.nombreUsuario)).getText().toString();
         String pwd = ((EditText) findViewById(R.id.claveUsuario)).getText().toString();
         if (authenticate(login, pwd)) {
-            intent.putExtra(LanguageActivity.EXTRA_LOGIN, login); //¿lo esta guardando directamente en la vble de la otra activity?
+            intent.putExtra(LanguageActivity.EXTRA_LOGIN, login);
             startActivity(intent);
         }
+    }
+    public void registrar(View view) {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
     }
 }

@@ -26,26 +26,16 @@ public class NetworkRequests {
     public static List<Pais> cargaPaises(String cont){
         String serverIP = "http://194.30.12.79/";
         List<Pais> paises = new ArrayList<Pais>();
-
+        String url = serverIP+"getCountries.php?idContinente=";
         Pais esp = new Pais(1, "España");
         Pais fin = new Pais(2, "Finlandia");
         paises.add(esp);
         paises.add(fin);
-        String url = serverIP+"getCountries.php?idContinente=";
+
 
 
         String request = url + cont;
         return paises;
-    }
-
-    public static List<DeporteXid> cargaDeportesXid(int id){
-        String serverIP = "http://194.30.12.79/";
-        List<DeporteXid> deportes = new ArrayList<DeporteXid>();
-        String url = serverIP+"getSportById.php?sportID=";
-
-
-        String request = url + id;
-        return deportes;
     }
     public static List<Deporte> cargaListaDeportes(int pais){
         String serverIP = "http://194.30.12.79/";
@@ -58,6 +48,30 @@ public class NetworkRequests {
         String request = url + pais;
         return deportes;
     }
+
+    public static DeporteXid cargaDeportesXid(int id){
+        DeporteXid deporte = new DeporteXid();
+        String serverIP = "http://194.30.12.79/";
+        String url = serverIP+"getSportById.php?sportID=";
+        String request = url + id;
+
+        /*deporte.setIdDeporte(id);
+        deporte.setNombre();
+        deporte.setUrlAdapCat();
+        deporte.setUrlAdapEn();
+        deporte.setUrlAdapEs();
+        deporte.setUrlAdapEus();
+        deporte.setUrlDescCat();
+        deporte.setUrlDescEn();
+        deporte.setUrlDescEs();
+        deporte.setUrlDescEus();*/
+
+
+
+
+        return deporte;
+    }
+
 
 }
 /*

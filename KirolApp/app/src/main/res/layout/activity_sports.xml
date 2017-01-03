@@ -60,7 +60,7 @@
         android:id="@+id/deporteSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
         android:visibility="gone">
     </Spinner>
     <Button
@@ -74,7 +74,7 @@
         android:id="@+id/botonEligeDeporte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
         android:text="@string/selectSp"
         android:onClick="eligeDeporte"
         android:visibility="gone"/>

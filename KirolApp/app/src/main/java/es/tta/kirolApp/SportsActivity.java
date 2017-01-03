@@ -1,7 +1,9 @@
 package es.tta.kirolApp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,8 +20,8 @@ import es.tta.kirolApp.model.NetworkRequests;
 import es.tta.kirolApp.model.Pais;
 
 public class SportsActivity extends AppCompatActivity {
-    List<Pais> listaPaises;
-    List<Deporte> listaDeportes;
+    protected List<Pais> listaPaises;
+    protected List<Deporte> listaDeportes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +54,34 @@ public class SportsActivity extends AppCompatActivity {
     public void eligePais(View view){
         Spinner paises = (Spinner) findViewById(R.id.paisSpinner);
         paises.setVisibility(View.GONE);
+        String paisElegido = paises.getSelectedItem().toString();
+
         Button boton = (Button) findViewById(R.id.botonEligePais);
         boton.setVisibility(View.GONE);
-        Button boton2 = (Button) findViewById(R.id.botonEligePais);
+        Spinner deportes = (Spinner) findViewById(R.id.deporteSpinner);
+        deportes.setVisibility(View.VISIBLE);
+        Button boton2 = (Button) findViewById(R.id.botonEligeDeporte);
         boton2.setVisibility(View.VISIBLE);
 
     }
     public void eligeDeporte(View view){
+        int idDeporte=0;
         Spinner deportes = (Spinner) findViewById(R.id.deporteSpinner);
         deportes.setVisibility(View.GONE);
+        String deporteElegido = deportes.getSelectedItem().toString();
+        Log.d("Deporte escogido", deporteElegido);
+        for(int i=0; i<listaDeportes.size() ; i++){
+            Log.d("Estado", "Dentro del for");
+            if(deporteElegido == listaDeportes.get(i).getNombre()){
+                i=listaDeportes.size();
+                Log.d("Estado", "Antes de asignar Id");
+               // idDeporte = listaDeportes.get(i).getId();
+                Log.d("Estado", "Dentro del for/if. IdDeporte"+idDeporte);
+                Intent intent = new Intent(SportsActivity.this,SelectedSportActivity.class);
+                intent.putExtra("SportId",idDeporte);
+                startActivity(intent);
+            }
+        }
         Button boton = (Button) findViewById(R.id.botonEligeDeporte);
         boton.setVisibility(View.GONE);
 

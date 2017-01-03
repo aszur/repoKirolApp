@@ -56,7 +56,8 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/sacaFoto"/>
+        android:text="@string/sacaFoto"
+        android:onClick="takePicture"/>
 
     <ImageView
         android:id="@+id/fotoRegistro"

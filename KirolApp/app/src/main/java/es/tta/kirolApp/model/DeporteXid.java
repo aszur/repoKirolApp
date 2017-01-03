@@ -19,13 +19,13 @@ public class DeporteXid {
     private int idForoMedio;
     private int idForoAlto;
 
-    public DeporteXid(int idDeporte, String nombre,
+    public DeporteXid(/*int idDeporte, String nombre,
                       String urlDescEs, String urlDescEus,
                       String urlDescEn, String urlDescCat,
                       String urlAdapEs, String urlAdapEus,
                       String urlAdapEn, String urlAdapCat,
-                      int idForoBajo, int idForoMedio, int idForoAlto) {
-        this.idDeporte = idDeporte;
+                      int idForoBajo, int idForoMedio, int idForoAlto*/) {
+        /*this.idDeporte = idDeporte;
         this.nombre = nombre;
         this.urlDescEs = urlDescEs;
         this.urlDescEus = urlDescEus;
@@ -37,7 +37,7 @@ public class DeporteXid {
         this.urlAdapCat = urlAdapCat;
         this.idForoBajo = idForoBajo;
         this.idForoMedio = idForoMedio;
-        this.idForoAlto = idForoAlto;
+        this.idForoAlto = idForoAlto;*/
     }
 
     public int getIdDeporte() {

@@ -37,6 +37,9 @@
     <string name="wifiAdvice">We advise use WiFi to continue</string>
     <string name="errorRegistro">Could not complete the register</string>
     <string name="errorAcceso">Incorrect data</string>
+    <string name="completeCampos">Complete all fields</string>
+    <string name="noApp">Does not exists app for this work</string>
+    <string name="noCamera">Your device does not have camera</string>
 
     <!-- Continentes -->
     <string name="europa">Europe</string>
@@ -45,5 +48,10 @@
     <string name="america">America</string>
     <string name="Asia">Asia</string>
 
+    <string name="desc">Load description</string>
+    <string name="adapt">Load adaptation</string>
+    <string name="foro1">Low Level forum</string>
+    <string name="foro2">Mid Level forum</string>
+    <string name="foro3">High Level forum</string>
 
 </resources>

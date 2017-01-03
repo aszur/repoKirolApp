@@ -37,6 +37,9 @@
     <string name="wifiAdvice">Se recomienda activar Wifi para continuar</string>
     <string name="errorRegistro">No se pudo completar el registro</string>
     <string name="errorAcceso">Datos incorrectos</string>
+    <string name="completeCampos">Complete todos los campos.</string>
+    <string name="noApp">No existe app para esta tarea</string>
+    <string name="noCamera">Su dispositivo no tiene cámara</string>
 
     <!-- Continentes -->
     <string name="europa">Europa</string>
@@ -45,6 +48,13 @@
     <string name="america">América</string>
     <string name="Asia">Asia</string>
     <string name="selectSp">Elige</string>
+
+    <string name="desc">Carga descripcion</string>
+    <string name="adapt">Carga adaptacion</string>
+    <string name="foro1">Foro nivel bajo</string>
+    <string name="foro2">Foro nivel medio</string>
+    <string name="foro3">Foro nivel alto</string>
+
 
 
 </resources>
