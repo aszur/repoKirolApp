@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+	Elemento de lista utilizado como plantilla para generar el listado de comentarios visibles
+	en el perfil de cualquier usuario que no sea el logueado.
+ -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <TextView 
+        android:id="@+id/nombreComentarista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Comentarista"/>
+    <TextView
+        android:id="@+id/comentario"
+        android:layout_height="50dp"
+        android:layout_width="230dp"
+        android:layout_below="@+id/nombreComentarista"
+        android:padding="5dp"
+        android:inputType="textMultiLine"
+        android:hint="@string/introduceComentario"
+        />
+   
+</RelativeLayout>

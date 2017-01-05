@@ -48,10 +48,15 @@
     <string name="america">America</string>
     <string name="Asia">Asia</string>
 
+    <!-- Botones deporte -->
     <string name="desc">Load description</string>
     <string name="adapt">Load adaptation</string>
     <string name="foro1">Low Level forum</string>
     <string name="foro2">Mid Level forum</string>
     <string name="foro3">High Level forum</string>
+
+    <!-- ForumActivity -->
+    <string name="introduceComentario">Introduce your comment</string>
+    <string name="botonEnviaComentario">Submit comment</string>
 
 </resources>

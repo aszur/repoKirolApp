@@ -14,7 +14,6 @@
         android:name="android.hardware.camera"
         android:required="false" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -44,7 +43,8 @@
 
         <activity android:name="es.tta.kirolApp.RegisterActivity" />
         <activity android:name="es.tta.kirolApp.SportsActivity" />
-        <activity android:name="es.tta.kirolApp.SelectedSportActivity"></activity>
+        <activity android:name="es.tta.kirolApp.SelectedSportActivity" />
+        <activity android:name="es.tta.kirolApp.ForumActivity"></activity>
     </application>
 
 </manifest>

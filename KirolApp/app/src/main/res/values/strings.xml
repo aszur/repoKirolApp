@@ -49,12 +49,16 @@
     <string name="Asia">Asia</string>
     <string name="selectSp">Elige</string>
 
+    <!-- Botones deporte -->
     <string name="desc">Carga descripcion</string>
     <string name="adapt">Carga adaptacion</string>
     <string name="foro1">Foro nivel bajo</string>
     <string name="foro2">Foro nivel medio</string>
     <string name="foro3">Foro nivel alto</string>
 
+    <!-- ForumActivity -->
+    <string name="introduceComentario">Introduzca su comentario</string>
+    <string name="botonEnviaComentario">Comentar</string>
 
 
 </resources>
