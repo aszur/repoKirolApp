@@ -1,7 +1,11 @@
 package es.tta.kirolApp.model;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by asier on 2/01/17.
@@ -12,14 +16,21 @@ public class NetworkRequests {
     }
 
 
-    public static boolean registra(User usuario){
-        String serverIP = "http://194.30.12.79/";
-        boolean estado = true;
-        String url = serverIP+"pullUser.php";
-        String request = url+ "?nombre=" +usuario.getNombre()+"&apodo="+usuario.getApodo()+"&apellido1="+usuario.getApellido1()+
-                "&apellido2="+usuario.getApellido2()+"&email="+ usuario.getEmail()+"&clave="+usuario.getPwd();
-        //PETICION ASINCRONA
-
+    public static boolean registra(User usuario, Context mContext){
+        Boolean estado = false;
+        RegistraUsuario registraUsuario = new RegistraUsuario();
+        try {
+            if(registraUsuario.execute(usuario).get()){
+                Toast.makeText(mContext, "Usuario Añadido.",
+                        Toast.LENGTH_SHORT).show();
+                estado = true;
+                return estado;
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         return estado;
     }
 

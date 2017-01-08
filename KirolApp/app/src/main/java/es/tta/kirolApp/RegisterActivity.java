@@ -2,6 +2,7 @@ package es.tta.kirolApp;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -72,9 +73,9 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    public void registrarUsuario(){
+    public void registrarUsuario(View v){
         if(compruebaCampos()){
-            NetworkRequests.registra(usuario);
+            NetworkRequests.registra(usuario, getBaseContext());
         }
 
     }
@@ -88,13 +89,16 @@ public class RegisterActivity extends AppCompatActivity {
         Tpwd = (EditText)findViewById(R.id.regName);
         TrepPwd = (EditText)findViewById(R.id.regName);
         Temail = (EditText)findViewById(R.id.regName);
-        if(Tnombre.getText().equals("")
-                || Tapodo.getText().equals("")
-                || Tapellido1.getText().equals("")
-                || Tapellido2.getText().equals("")
-                || Tpwd.getText().equals("")
-                || Temail.getText().equals("") )
+        System.out.println(Tnombre.toString());
+        if(Tnombre.getText().toString().equals("")
+                || Tapodo.getText().toString().equals("")
+                || Tapellido1.getText().toString().equals("")
+                || Tapellido2.getText().toString().equals("")
+                || Tpwd.getText().toString().equals("")
+                || Temail.getText().toString().equals("") )
         {
+            System.out.println("Antes del toast de los campos");
+            Log.d("Comprobando campos","Antes del toast de campos");
             Toast.makeText(this,getString(R.string.completeCampos), Toast.LENGTH_SHORT).show();
            /* if(Tnombre.getText().equals("")){
                 Toast.makeText(this,getString(R.string.claveEsCorta), Toast.LENGTH_SHORT).show();
@@ -114,35 +118,42 @@ public class RegisterActivity extends AppCompatActivity {
             if(Temail.getText().equals("")){
                 Toast.makeText(this,getString(R.string.claveEsCorta), Toast.LENGTH_SHORT).show();
             }*/
-
         }
-        else{
+        else{//Si los campos no estan vacios
+            System.out.println("Campos completados. Comprobando...");
+            if(Tpwd.getText().toString().equals(TrepPwd.getText().toString()) && Tpwd.getText().length()>4 && fields)
+            {
+                System.out.println("Campos completados. Dentro del if...");
+
+                usuario.setNombre(Tnombre.getText().toString());
+                usuario.setApellido1(Tapellido1.getText().toString());
+                usuario.setApellido2(Tapellido2.getText().toString());
+                usuario.setApodo(Tapodo.getText().toString());
+                usuario.setPwd(Tpwd.getText().toString());
+                usuario.setEmail(Temail.getText().toString());
+                pwd = true;
+            }
+            else
+            {
+                if(Tpwd.getText().toString().equals(TrepPwd.getText().toString()) == false)
+                {
+                    System.out.println("Campos completados. Claves no coinciden...");
+
+                    Toast.makeText(this,getString(R.string.claveNoCoincide), Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    if(Tpwd.length()<4){
+                        System.out.println("Campos completados. Clave pequeña...");
+
+                        Toast.makeText(this,getString(R.string.claveEsCorta), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
             fields = true;
         }
 
-        if(Tpwd.equals(TrepPwd) && Tpwd.length()>4 && fields)
-        {
-            usuario.setNombre(Tnombre.toString());
-            usuario.setApellido1(Tapellido1.toString());
-            usuario.setApellido2(Tapellido2.toString());
-            usuario.setApodo(Tapodo.toString());
-            usuario.setPwd(Tpwd.toString());
-            usuario.setEmail(Temail.toString());
-            pwd = true;
-        }
-        else
-        {
-            if(Tpwd.equals(TrepPwd) == false)
-            {
-                Toast.makeText(this,getString(R.string.claveNoCoincide), Toast.LENGTH_SHORT).show();
-            }
-            else{
-                if(Tpwd.length()<4){
-                    Toast.makeText(this,getString(R.string.claveEsCorta), Toast.LENGTH_SHORT).show();
-                }
-            }
 
-        }
         if(pwd  && fields){
             return true;
         }else{
