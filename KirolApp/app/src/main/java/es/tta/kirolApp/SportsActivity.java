@@ -48,6 +48,8 @@ public class SportsActivity extends AppCompatActivity {
         radioGroup.setVisibility(View.GONE);
         Button boton = (Button) findViewById(R.id.botonEligeContinente);
         boton.setVisibility(View.GONE);
+        Spinner paises = (Spinner) findViewById(R.id.paisSpinner);
+        paises.setVisibility(View.VISIBLE);
         Button boton2 = (Button) findViewById(R.id.botonEligePais);
         boton2.setVisibility(View.VISIBLE);
     }
