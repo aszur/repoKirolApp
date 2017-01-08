@@ -39,7 +39,6 @@ public class SelectedSportActivity extends AppCompatActivity {
     }
     public void cargaDescripcion(View view){
         download(deporte.getUrlDescEs());
-        showPdf();
         //folder.delete();
     }
     public void cargaAdaptacion(){
@@ -111,9 +110,13 @@ public class SelectedSportActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             Downloader.downloadFile(fileUrl, pdfFile);
-            
-            showPdf();
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            showPdf();
         }
     }
 
