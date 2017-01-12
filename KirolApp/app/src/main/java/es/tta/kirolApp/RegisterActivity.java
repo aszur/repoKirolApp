@@ -76,10 +76,16 @@ public class RegisterActivity extends AppCompatActivity {
     public void registrarUsuario(View v){
         if(compruebaCampos()){
             System.out.println("Campos comprobados. Vamos a registrar usuario.");
-            NetworkRequests.registra(usuario);
-            Toast.makeText(this, "Usuario Añadido.",
-                    Toast.LENGTH_SHORT).show();
-            finish();
+            if(NetworkRequests.registra(usuario)){
+                Toast.makeText(this, R.string.userAdded,
+                        Toast.LENGTH_SHORT).show();
+                finish();
+            }else{
+                Toast.makeText(this, R.string.userNoAdded,
+                        Toast.LENGTH_SHORT).show();
+                finish();
+            }
+
         }
 
     }

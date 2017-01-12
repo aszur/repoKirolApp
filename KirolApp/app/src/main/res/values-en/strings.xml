@@ -41,6 +41,8 @@
     <string name="completeCampos">Complete all fields</string>
     <string name="noApp">Does not exists app for this work</string>
     <string name="noCamera">Your device does not have camera</string>
+    <string name="userAdded">User added</string>
+    <string name="userNoAdded">System Error. User has not been added.</string>
 
     <!-- Continentes -->
     <string name="europa">Europe</string>

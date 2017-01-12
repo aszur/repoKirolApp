@@ -5,6 +5,8 @@ package es.tta.kirolApp.model;
  */
 
 
+import java.io.BufferedReader;
+import java.io.Reader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,10 +16,11 @@ import java.net.URL;
 
 import android.os.AsyncTask;
 
-public class RegistraUsuario extends AsyncTask<User, Integer, Boolean>{
+public class UserRegister extends AsyncTask<User, Integer, Boolean>{
     @Override
     protected Boolean doInBackground(User... usuario) {
         boolean estado = false;
+        String respuesta ="";
         HttpURLConnection urlConnection = null;
         String nombre = usuario[0].getNombre();
         String apellido1 = usuario[0].getApellido1();
@@ -34,22 +37,16 @@ public class RegistraUsuario extends AsyncTask<User, Integer, Boolean>{
             InputStream in = urlConnection.getInputStream();
 
             InputStreamReader isr = new InputStreamReader(in,"UTF-8");
-            String respuesta = isr.toString();
-            System.out.println(respuesta);
-            /*int data = isr.read(); //Devuelve -1 si falla
-            while (data != -1) {
-                estado = true;
-                char current = (char) data;
-                data = isr.read();
-                System.out.print(current);
-            }*/
-            /*try(BufferedReader br = new BufferedReader(isr)){
-                if(br.readLine() == "true"){
-                    return true;
-                }else{
-                    return false;
-                }
-            }*/
+
+            BufferedReader br = new BufferedReader(isr);
+            //System.out.println("La respuesta es: "+br.readLine());
+            if((respuesta = br.readLine()).equals("true")){
+                System.out.println("La respuesta es: "+respuesta);
+                return true;
+            }else{
+                return false;
+            }
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {

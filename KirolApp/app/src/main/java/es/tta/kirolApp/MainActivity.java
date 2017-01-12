@@ -22,19 +22,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.app_name);
     }
 
-    public boolean authenticate (String login, String pwd){
-        boolean comprobacion = true;//false;
-        /*User usuario = new User();
-        usuario.setApodo(login);
-        usuario.setPwd(pwd);
-        if(NetworkRequests.checkUser(usuario)){
-            comprobacion = true;
-        }else{
-            Toast.makeText(this,R.string.errorAcceso, Toast.LENGTH_SHORT).show();
-        }*/
-        return comprobacion;
-    }
-    public void accede(View view) {
+    public void accede(View view) { //Funcion llamada desde el view
         Intent intent = new Intent(this, LanguageActivity.class);
         String login = ((EditText) findViewById(R.id.nombreUsuario)).getText().toString();
         String pwd = ((EditText) findViewById(R.id.claveUsuario)).getText().toString();
@@ -43,6 +31,20 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+    public boolean authenticate (String login, String pwd){
+        boolean comprobacion = false;
+        User usuario = new User();
+        usuario.setApodo(login);
+        usuario.setPwd(pwd);
+        if(NetworkRequests.checkUser(usuario)){
+            System.out.println("checUser devuelve true");
+            comprobacion = true;
+        }else{
+            Toast.makeText(this,R.string.errorAcceso, Toast.LENGTH_SHORT).show();
+        }
+        return comprobacion;
+    }
+
     public void registrar(View view) {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);

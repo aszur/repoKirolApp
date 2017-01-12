@@ -1,8 +1,5 @@
 package es.tta.kirolApp.model;
 
-import android.content.Context;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -18,8 +15,8 @@ public class NetworkRequests {
 
     public static boolean registra(User usuario){
         Boolean estado = false;
-        RegistraUsuario registraUsuario = new RegistraUsuario();
-        System.out.println("Instanciada clase RegistraUsuario");
+        UserRegister registraUsuario = new UserRegister();
+        System.out.println("Instanciada clase UserRegister");
         try {
             if(registraUsuario.execute(usuario).get()){
                 estado = true;
@@ -37,8 +34,8 @@ public class NetworkRequests {
         CheckUser cU = new CheckUser();
         try {
             if(cU.execute(usuario).get()){
+                System.out.println("En NR, cU devuelve true");
                 estado = true;
-                return estado;
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -50,28 +47,30 @@ public class NetworkRequests {
     }
 
     public static List<Pais> cargaPaises(String cont){
-        String serverIP = "http://194.30.12.79/";
         List<Pais> paises = new ArrayList<Pais>();
-        String url = serverIP+"getCountries.php?idContinente=";
-        Pais esp = new Pais(1, "España");
-        Pais fin = new Pais(2, "Finlandia");
-        paises.add(esp);
-        paises.add(fin);
+        GetCountries gC = new GetCountries();
+        try {
+            paises = gC.execute(cont).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
 
-
-        String request = url + cont;
+        //String request = url + cont;
         return paises;
     }
     public static List<Deporte> cargaListaDeportes(int pais){
-        String serverIP = "http://194.30.12.79/";
         List<Deporte> deportes = new ArrayList<Deporte>();
-        String url = serverIP+"getSportsByCountry.php?idPais=";
-        Deporte eje1 = new Deporte("Futbol", 1);
-        Deporte eje2 = new Deporte("Baloncesto", 2);
-        deportes.add(eje1);
-        deportes.add(eje2);
-        String request = url + pais;
+        GetSportsList gsL = new GetSportsList();
+        try {
+            deportes = gsL.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         return deportes;
     }
 

@@ -11,25 +11,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="es.tta.kirolApp.SelectedSportActivity">
 
-    <GridLayout
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/botonDesc"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:columnCount="2">
-        <Button
-            android:id="@+id/botonDesc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/desc"
-            android:onClick="cargaDescripcion"/>
-        <Button
-            android:id="@+id/botonAdapt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/desc"
-            android:onClick="cargaAdaptacion"/>
-    </GridLayout>
+        android:layout_gravity="center_horizontal"
+        android:text="@string/desc"
+        android:onClick="cargaDescripcion"/>
+    <Button
+        android:id="@+id/botonAdapt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/desc"
+        android:onClick="cargaAdaptacion"/>
     <Button
         android:id="@+id/botonForo1"
         android:layout_width="wrap_content"

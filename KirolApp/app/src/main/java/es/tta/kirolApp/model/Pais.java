@@ -8,9 +8,8 @@ public class Pais {
     private String nombre;
     private int id;
 
-    public Pais(int id, String nombre) {
-        this.nombre = nombre;
-        this.id = id;
+    public Pais() {
+
     }
 
     public String getNombre() {

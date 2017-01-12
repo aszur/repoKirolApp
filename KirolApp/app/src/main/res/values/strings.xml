@@ -41,6 +41,8 @@
     <string name="completeCampos">Complete todos los campos.</string>
     <string name="noApp">No existe app para esta tarea</string>
     <string name="noCamera">Su dispositivo no tiene cámara</string>
+    <string name="userAdded">Usuario añadido</string>
+    <string name="userNoAdded">Error en el sistema. No se pudo añadir el usuario</string>
 
     <!-- Continentes -->
     <string name="europa">Europa</string>
