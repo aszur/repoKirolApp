@@ -75,20 +75,23 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void registrarUsuario(View v){
         if(compruebaCampos()){
-            NetworkRequests.registra(usuario, getBaseContext());
+            System.out.println("Campos comprobados. Vamos a registrar usuario.");
+            NetworkRequests.registra(usuario);
+            Toast.makeText(this, "Usuario Añadido.",
+                    Toast.LENGTH_SHORT).show();
+            finish();
         }
 
     }
     private boolean compruebaCampos(){
         boolean fields = false;
-        boolean pwd = false;
         Tnombre = (EditText)findViewById(R.id.regName);
-        Tapodo = (EditText)findViewById(R.id.regName);
-        Tapellido1 = (EditText)findViewById(R.id.regName);
-        Tapellido2 = (EditText)findViewById(R.id.regName);
-        Tpwd = (EditText)findViewById(R.id.regName);
-        TrepPwd = (EditText)findViewById(R.id.regName);
-        Temail = (EditText)findViewById(R.id.regName);
+        Tapodo = (EditText)findViewById(R.id.regNoName);
+        Tapellido1 = (EditText)findViewById(R.id.regApellido);
+        Tapellido2 = (EditText)findViewById(R.id.regApellido2);
+        Tpwd = (EditText)findViewById(R.id.regPass);
+        TrepPwd = (EditText)findViewById(R.id.regRepPass);
+        Temail = (EditText)findViewById(R.id.regEmail);
         System.out.println(Tnombre.toString());
         if(Tnombre.getText().toString().equals("")
                 || Tapodo.getText().toString().equals("")
@@ -120,8 +123,9 @@ public class RegisterActivity extends AppCompatActivity {
             }*/
         }
         else{//Si los campos no estan vacios
-            System.out.println("Campos completados. Comprobando...");
-            if(Tpwd.getText().toString().equals(TrepPwd.getText().toString()) && Tpwd.getText().length()>4 && fields)
+            System.out.println("Campos completados. Comprobando si "+TrepPwd.getText().toString()+"="+Tpwd.getText().toString()+
+            "La longitud es: "+Tpwd.getText().length());
+            if(Tpwd.getText().toString().equals(TrepPwd.getText().toString()) && Tpwd.getText().length()>4)
             {
                 System.out.println("Campos completados. Dentro del if...");
 
@@ -131,34 +135,24 @@ public class RegisterActivity extends AppCompatActivity {
                 usuario.setApodo(Tapodo.getText().toString());
                 usuario.setPwd(Tpwd.getText().toString());
                 usuario.setEmail(Temail.getText().toString());
-                pwd = true;
+                fields = true;
             }
-            else
-            {
-                if(Tpwd.getText().toString().equals(TrepPwd.getText().toString()) == false)
-                {
+            else {
+                if (Tpwd.getText().toString().equals(TrepPwd.getText().toString()) == false) {
                     System.out.println("Campos completados. Claves no coinciden...");
 
-                    Toast.makeText(this,getString(R.string.claveNoCoincide), Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    if(Tpwd.length()<4){
+                    Toast.makeText(this, getString(R.string.claveNoCoincide), Toast.LENGTH_SHORT).show();
+                } else {
+                    if (Tpwd.length() < 4) {
                         System.out.println("Campos completados. Clave pequeña...");
 
-                        Toast.makeText(this,getString(R.string.claveEsCorta), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, getString(R.string.claveEsCorta), Toast.LENGTH_SHORT).show();
                     }
                 }
-
+                fields = false;
             }
-            fields = true;
         }
-
-
-        if(pwd  && fields){
-            return true;
-        }else{
-            return false;
-        }
+        return fields;
     }
     public void takePicture(View view){
         Log.d("Estado", "En takePicture");

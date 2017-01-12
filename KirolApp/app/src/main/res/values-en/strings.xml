@@ -48,6 +48,7 @@
     <string name="oceania">Oceania</string>
     <string name="america">America</string>
     <string name="Asia">Asia</string>
+    <string name="selectSp">Select</string>
 
     <!-- Botones deporte -->
     <string name="desc">Load description</string>

@@ -16,13 +16,12 @@ public class NetworkRequests {
     }
 
 
-    public static boolean registra(User usuario, Context mContext){
+    public static boolean registra(User usuario){
         Boolean estado = false;
         RegistraUsuario registraUsuario = new RegistraUsuario();
+        System.out.println("Instanciada clase RegistraUsuario");
         try {
             if(registraUsuario.execute(usuario).get()){
-                Toast.makeText(mContext, "Usuario Añadido.",
-                        Toast.LENGTH_SHORT).show();
                 estado = true;
                 return estado;
             }
@@ -32,6 +31,22 @@ public class NetworkRequests {
             e.printStackTrace();
         }
         return estado;
+    }
+    public static boolean checkUser(User usuario){
+        Boolean estado = false;
+        CheckUser cU = new CheckUser();
+        try {
+            if(cU.execute(usuario).get()){
+                estado = true;
+                return estado;
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return estado;
+
     }
 
     public static List<Pais> cargaPaises(String cont){

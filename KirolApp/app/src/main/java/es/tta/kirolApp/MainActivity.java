@@ -1,12 +1,17 @@
 package es.tta.kirolApp;
 
 import android.content.Intent;
+import android.net.NetworkRequest;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.docencia.kirolApp.R;
+
+import es.tta.kirolApp.model.NetworkRequests;
+import es.tta.kirolApp.model.User;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +23,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean authenticate (String login, String pwd){
-        boolean comprobacion = true;
+        boolean comprobacion = true;//false;
+        /*User usuario = new User();
+        usuario.setApodo(login);
+        usuario.setPwd(pwd);
+        if(NetworkRequests.checkUser(usuario)){
+            comprobacion = true;
+        }else{
+            Toast.makeText(this,R.string.errorAcceso, Toast.LENGTH_SHORT).show();
+        }*/
         return comprobacion;
     }
     public void accede(View view) {

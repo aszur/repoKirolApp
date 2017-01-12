@@ -5,6 +5,8 @@ package es.tta.kirolApp.model;
  */
 
 
+import android.os.AsyncTask;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -12,22 +14,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import android.os.AsyncTask;
-
-public class RegistraUsuario extends AsyncTask<User, Integer, Boolean>{
+public class CheckUser extends AsyncTask<User, Integer, Boolean>{
     @Override
     protected Boolean doInBackground(User... usuario) {
         boolean estado = false;
         HttpURLConnection urlConnection = null;
-        String nombre = usuario[0].getNombre();
-        String apellido1 = usuario[0].getApellido1();
-        String apellido2 = usuario[0].getApellido2();
         String apodo = usuario[0].getApodo();
-        String email = usuario[0].getEmail();
         String pwd = usuario[0].getPwd();
-        System.out.println("Nombre: "+nombre);
-        String surl = "http://194.30.12.79/putUser.php?nombre="+nombre+"&apodo="+apodo+"&apellido1="+apellido1+
-                "&apellido2="+apellido2+"&email="+email+"&clave="+pwd;
+        String surl = "http://194.30.12.79/checkUser.php?&apodo="+apodo+"&clave="+pwd;
         try {
             URL url = new URL(surl);
             urlConnection = (HttpURLConnection) url.openConnection();
