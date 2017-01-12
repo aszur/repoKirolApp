@@ -61,11 +61,11 @@ public class NetworkRequests {
         //String request = url + cont;
         return paises;
     }
-    public static List<Deporte> cargaListaDeportes(int pais){
+    public static List<Deporte> cargaListaDeportes(String pais){
         List<Deporte> deportes = new ArrayList<Deporte>();
         GetSportsList gsL = new GetSportsList();
         try {
-            deportes = gsL.execute().get();
+            deportes = gsL.execute(pais).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

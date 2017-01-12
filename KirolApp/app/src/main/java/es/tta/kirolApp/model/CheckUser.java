@@ -27,16 +27,18 @@ public class CheckUser extends AsyncTask<User, Integer, Boolean>{
         try {
             URL url = new URL(surl);
             urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = urlConnection.getInputStream();
+            if (urlConnection.getResponseCode() == 200) {
+                InputStream in = urlConnection.getInputStream();
 
-            InputStreamReader isr = new InputStreamReader(in,"UTF-8");
-            BufferedReader br = new BufferedReader(isr);
-            //System.out.println("La respuesta es: "+br.readLine());
-            if((respuesta = br.readLine()).equals("true")){
-                System.out.println("La respuesta es: "+respuesta);
-                return true;
-            }else{
-                return false;
+                InputStreamReader isr = new InputStreamReader(in, "UTF-8");
+                BufferedReader br = new BufferedReader(isr);
+                //System.out.println("La respuesta es: "+br.readLine());
+                if ((respuesta = br.readLine()).equals("true")) {
+                    System.out.println("La respuesta es: " + respuesta);
+                    return true;
+                } else {
+                    return false;
+                }
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();

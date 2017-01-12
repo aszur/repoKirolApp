@@ -31,28 +31,29 @@ public class GetCountries extends AsyncTask<String, Integer, List<Pais>>{
         try {
             URL url = new URL(surl);
             urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = urlConnection.getInputStream();
-            InputStreamReader isr = new InputStreamReader(in,"UTF-8");
-            BufferedReader br = new BufferedReader(isr);
-            respuesta = br.readLine();
-            //System.out.println(respuesta);
-            try {
-                JSONArray jr = new JSONArray(respuesta);
-                int size = jr.length();
-                for(int i=0;i<size;i++){
-                    Pais p = new Pais();
-                    JSONObject jo = (JSONObject) jr.getJSONObject(i);
-                    p.setId(jo.getInt("idPais"));
-                    System.out.println("Id: "+p.getId());
-                    p.setNombre(jo.getString("nombre"));
-                    System.out.println("Id: "+p.getNombre());
-                    paises.add(p);
+            if (urlConnection.getResponseCode() == 200) {
+                InputStream in = urlConnection.getInputStream();
+                InputStreamReader isr = new InputStreamReader(in, "UTF-8");
+                BufferedReader br = new BufferedReader(isr);
+                respuesta = br.readLine();
+                //System.out.println(respuesta);
+                try {
+                    JSONArray jr = new JSONArray(respuesta);
+                    int size = jr.length();
+                    for (int i = 0; i < size; i++) {
+                        Pais p = new Pais();
+                        JSONObject jo = (JSONObject) jr.getJSONObject(i);
+                        p.setId(jo.getInt("idPais"));
+                        System.out.println("Id: " + p.getId());
+                        p.setNombre(jo.getString("nombre"));
+                        System.out.println("Id: " + p.getNombre());
+                        paises.add(p);
+                    }
+                    ;
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                ;
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
-
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

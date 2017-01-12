@@ -1,7 +1,7 @@
 package es.tta.kirolApp.model;
 
 /**
- * Created by asier on 8/01/17.
+ * Created by asier on 13/01/17.
  */
 
 
@@ -27,32 +27,34 @@ public class GetSportsList extends AsyncTask<String, Integer, List<Deporte>>{
         String respuesta ="";
         HttpURLConnection urlConnection = null;
         List<Deporte> deportes = new ArrayList<Deporte>();
-        String surl = "http://194.30.12.79/getSportsByCountry.php?idPais="+pais;
+        String surl = "http://194.30.12.79/getSportsByCountry.php?idPais="+pais[0];
+        System.out.println(surl);
         try {
             URL url = new URL(surl);
             urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = urlConnection.getInputStream();
-            InputStreamReader isr = new InputStreamReader(in,"UTF-8");
-            BufferedReader br = new BufferedReader(isr);
-            respuesta = br.readLine();
-            //System.out.println(respuesta);
-            try {
-                JSONArray jr = new JSONArray(respuesta);
-                int size = jr.length();
-                for(int i=0;i<size;i++){
-                    Deporte d = new Deporte();
-                    JSONObject jo = (JSONObject) jr.getJSONObject(i);
-                    d.setId(jo.getInt("id"));
-                    System.out.println("Id: "+d.getId());
-                    d.setNombre(jo.getString("nombre"));
-                    System.out.println("Id: "+d.getNombre());
-                    deportes.add(d);
+            if (urlConnection.getResponseCode() == 200) {
+                InputStream in = urlConnection.getInputStream();
+                InputStreamReader isr = new InputStreamReader(in, "UTF-8");
+                BufferedReader br = new BufferedReader(isr);
+                respuesta = br.readLine();
+                System.out.println(respuesta);
+                try {
+                    JSONArray jr = new JSONArray(respuesta);
+                    int size = jr.length();
+                    for (int i = 0; i < size; i++) {
+                        Deporte d = new Deporte();
+                        JSONObject jo = (JSONObject) jr.getJSONObject(i);
+                        d.setId(jo.getInt("id"));
+                        System.out.println("Id: " + d.getId());
+                        d.setNombre(jo.getString("nombre"));
+                        System.out.println("Id: " + d.getNombre());
+                        deportes.add(d);
+                    }
+                    ;
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                ;
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
-
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

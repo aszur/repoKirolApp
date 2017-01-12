@@ -28,10 +28,8 @@ public class SportsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sports);
         //Poblar spinners
-        Spinner spPaises = (Spinner) findViewById(R.id.paisSpinner);
-        Spinner spDeportes = (Spinner) findViewById(R.id.deporteSpinner);
-        rellenaSpiner(spPaises,0);
-        rellenaSpiner(spDeportes,1);
+
+
 
     }
     @Override
@@ -48,10 +46,13 @@ public class SportsActivity extends AppCompatActivity {
         radioGroup.setVisibility(View.GONE);
         Button boton = (Button) findViewById(R.id.botonEligeContinente);
         boton.setVisibility(View.GONE);
+        Spinner spPaises = (Spinner) findViewById(R.id.paisSpinner);
+        rellenaSpiner(spPaises,0);
         Spinner paises = (Spinner) findViewById(R.id.paisSpinner);
         paises.setVisibility(View.VISIBLE);
         Button boton2 = (Button) findViewById(R.id.botonEligePais);
         boton2.setVisibility(View.VISIBLE);
+
     }
     public void eligePais(View view){
         Spinner paises = (Spinner) findViewById(R.id.paisSpinner);
@@ -60,10 +61,13 @@ public class SportsActivity extends AppCompatActivity {
 
         Button boton = (Button) findViewById(R.id.botonEligePais);
         boton.setVisibility(View.GONE);
+        Spinner spDeportes = (Spinner) findViewById(R.id.deporteSpinner);
+        rellenaSpiner(spDeportes,1);
         Spinner deportes = (Spinner) findViewById(R.id.deporteSpinner);
         deportes.setVisibility(View.VISIBLE);
         Button boton2 = (Button) findViewById(R.id.botonEligeDeporte);
         boton2.setVisibility(View.VISIBLE);
+
 
     }
     public void eligeDeporte(View view){
@@ -108,7 +112,8 @@ public class SportsActivity extends AppCompatActivity {
         {
             if(select == 1){
                 listaDeportes = new ArrayList<Deporte>();
-                listaDeportes = NetworkRequests.cargaListaDeportes(1);
+                String id = obtieneId();
+                listaDeportes = NetworkRequests.cargaListaDeportes(id); // Recibe el id del pais del que quiere cargar los deportes
                 for (Deporte deporte: listaDeportes) {
                     String sport = deporte.getNombre();
                     lista.add(sport);
@@ -121,8 +126,17 @@ public class SportsActivity extends AppCompatActivity {
             }
 
         }
-
-
-
+    }
+    private String  obtieneId(){
+        Spinner sp = (Spinner)findViewById(R.id.paisSpinner);
+        String pais = sp.getSelectedItem().toString();
+        String id="";
+        for (Pais p:listaPaises) {
+            if(p.getNombre().equals(pais)){
+                id = Integer.toString(p.getId());
+                System.out.println("El id del pais "+p.getNombre()+ " es: "+id);
+            }
+        }
+        return id;
     }
 }
