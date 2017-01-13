@@ -10,7 +10,7 @@ public class Comentario {
     private int id;
     private String remitente;
     private String mensaje;
-    private Date fecha;
+    private String fecha;
 
     public Comentario() {
     }
@@ -39,11 +39,11 @@ public class Comentario {
         this.mensaje = mensaje;
     }
 
-    public Date getFecha() {
+    public String  getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 }

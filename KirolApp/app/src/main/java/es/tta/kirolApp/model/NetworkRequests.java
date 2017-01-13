@@ -15,8 +15,8 @@ public class NetworkRequests {
 
     public static boolean registra(User usuario){
         Boolean estado = false;
-        UserRegister registraUsuario = new UserRegister();
-        System.out.println("Instanciada clase UserRegister");
+        AT_UserRegister registraUsuario = new AT_UserRegister();
+        System.out.println("Instanciada clase AT_UserRegister");
         try {
             if(registraUsuario.execute(usuario).get()){
                 estado = true;
@@ -31,7 +31,7 @@ public class NetworkRequests {
     }
     public static boolean checkUser(User usuario){
         Boolean estado = false;
-        CheckUser cU = new CheckUser();
+        AT_CheckUser cU = new AT_CheckUser();
         try {
             if(cU.execute(usuario).get()){
                 System.out.println("En NR, cU devuelve true");
@@ -48,7 +48,7 @@ public class NetworkRequests {
 
     public static List<Pais> cargaPaises(String cont){
         List<Pais> paises = new ArrayList<Pais>();
-        GetCountries gC = new GetCountries();
+        AT_GetCountries gC = new AT_GetCountries();
         try {
             paises = gC.execute(cont).get();
         } catch (InterruptedException e) {
@@ -63,7 +63,7 @@ public class NetworkRequests {
     }
     public static List<Deporte> cargaListaDeportes(String pais){
         List<Deporte> deportes = new ArrayList<Deporte>();
-        GetSportsList gsL = new GetSportsList();
+        AT_GetSportsList gsL = new AT_GetSportsList();
         try {
             deportes = gsL.execute(pais).get();
         } catch (InterruptedException e) {
@@ -76,7 +76,7 @@ public class NetworkRequests {
 
     public static DeporteXid cargaDeportesXid(String id){
         DeporteXid deporte = new DeporteXid();
-        GetSportById gsbI = new GetSportById();
+        AT_GetSportById gsbI = new AT_GetSportById();
         try {
             deporte = gsbI.execute(id).get();
             return deporte;
@@ -85,24 +85,14 @@ public class NetworkRequests {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
-        /*deporte.setIdDeporte(id);
-        deporte.setNombre();
-        deporte.setUrlAdapCat();
-        deporte.setUrlAdapEn();
-        deporte.setUrlAdapEs();
-        deporte.setUrlAdapEus();
-        deporte.setUrlDescCat();
-        deporte.setUrlDescEn();
-        deporte.setUrlDescEs();
-        deporte.setUrlDescEus();*/
-
-
-
-
         return deporte;
     }
 
+    public static List<Comentario> cargaComentarios(String idForo){
+        List<Comentario> listaComentarios = new ArrayList<Comentario>();
+        //listaComentarios = ;
+        return listaComentarios;
+    }
 
 }
 /*

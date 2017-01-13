@@ -21,7 +21,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetSportsList extends AsyncTask<String, Integer, List<Deporte>>{
+public class AT_GetSportsList extends AsyncTask<String, Integer, List<Deporte>>{
     @Override
     protected List<Deporte> doInBackground(String... pais) {
         String respuesta ="";

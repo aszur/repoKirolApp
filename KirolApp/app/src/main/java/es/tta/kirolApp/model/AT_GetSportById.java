@@ -21,7 +21,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetSportById extends AsyncTask<String, Integer, DeporteXid>{
+public class AT_GetSportById extends AsyncTask<String, Integer, DeporteXid>{
     @Override
     protected DeporteXid doInBackground(String... dep) {
         String respuesta ="";

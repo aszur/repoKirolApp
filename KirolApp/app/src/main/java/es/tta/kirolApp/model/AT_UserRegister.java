@@ -16,7 +16,7 @@ import java.net.URL;
 
 import android.os.AsyncTask;
 
-public class UserRegister extends AsyncTask<User, Integer, Boolean>{
+public class AT_UserRegister extends AsyncTask<User, Integer, Boolean>{
     @Override
     protected Boolean doInBackground(User... usuario) {
         boolean estado = false;

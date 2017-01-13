@@ -15,7 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class CheckUser extends AsyncTask<User, Integer, Boolean>{
+public class AT_CheckUser extends AsyncTask<User, Integer, Boolean>{
     @Override
     protected Boolean doInBackground(User... usuario) {
         boolean estado = false;

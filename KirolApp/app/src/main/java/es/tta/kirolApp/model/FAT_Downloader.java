@@ -14,7 +14,7 @@ import java.net.URL;
  * Created by asier on 8/01/17.
  */
 
-public class Downloader {
+public class FAT_Downloader {
     private static final int  MEGABYTE = 1024 * 1024;
 
     public static void downloadFile(String fileUrl, File directory){

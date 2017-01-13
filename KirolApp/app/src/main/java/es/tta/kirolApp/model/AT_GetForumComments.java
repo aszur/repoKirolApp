@@ -1,7 +1,7 @@
 package es.tta.kirolApp.model;
 
 /**
- * Created by asier on 8/01/17.
+ * Created by asier on 13/01/17.
  */
 
 
@@ -21,13 +21,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetCountries extends AsyncTask<String, Integer, List<Pais>>{
+public class AT_GetForumComments extends AsyncTask<String, Integer, List<Comentario>>{
     @Override
-    protected List<Pais> doInBackground(String... continente) {
+    protected List<Comentario> doInBackground(String... foro) {
         String respuesta ="";
         HttpURLConnection urlConnection = null;
-        List<Pais> paises = new ArrayList<Pais>();
-        String surl = "http://194.30.12.79/getCountries.php?idContinente="+continente;
+        List<Comentario> comentarios = new ArrayList<Comentario>();
+        String surl = "http://194.30.12.79/getMessagesByForum.php?forumID="+foro[0];
+        System.out.println(surl);
         try {
             URL url = new URL(surl);
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -36,18 +37,18 @@ public class GetCountries extends AsyncTask<String, Integer, List<Pais>>{
                 InputStreamReader isr = new InputStreamReader(in, "UTF-8");
                 BufferedReader br = new BufferedReader(isr);
                 respuesta = br.readLine();
-                //System.out.println(respuesta);
+                System.out.println(respuesta);
                 try {
                     JSONArray jr = new JSONArray(respuesta);
                     int size = jr.length();
                     for (int i = 0; i < size; i++) {
-                        Pais p = new Pais();
+                        Comentario com = new Comentario();
                         JSONObject jo = (JSONObject) jr.getJSONObject(i);
-                        p.setId(jo.getInt("idPais"));
-                        System.out.println("Id: " + p.getId());
-                        p.setNombre(jo.getString("nombre"));
-                        System.out.println("Id: " + p.getNombre());
-                        paises.add(p);
+                        com.setId(jo.getInt("id"));
+                        com.setFecha(jo.getString("fecha"));
+                        com.setMensaje(jo.getString("mensaje"));
+                        com.setRemitente(jo.getString("emisor"));
+                        comentarios.add(com);
                     }
                     ;
                 } catch (JSONException e) {
@@ -60,7 +61,7 @@ public class GetCountries extends AsyncTask<String, Integer, List<Pais>>{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return paises;
+        return comentarios;
     }
 }
 
