@@ -74,11 +74,16 @@ public class NetworkRequests {
         return deportes;
     }
 
-    public static DeporteXid cargaDeportesXid(int id){
+    public static DeporteXid cargaDeportesXid(int id){//Necesito algo para saber de qué idioma cargar los botones
         DeporteXid deporte = new DeporteXid();
-        String serverIP = "http://194.30.12.79/";
-        String url = serverIP+"getSportById.php?sportID=";
-        String request = url + id;
+        GetSportById gsbI = new GetSportById();
+        try {
+            gsbI.execute(Integer.toString(id)).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
         /*deporte.setIdDeporte(id);
         deporte.setNombre();
