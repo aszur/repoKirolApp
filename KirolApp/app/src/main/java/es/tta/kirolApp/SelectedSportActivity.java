@@ -28,21 +28,35 @@ import es.tta.kirolApp.model.NetworkRequests;
 public class SelectedSportActivity extends AppCompatActivity {
     private DeporteXid deporte;
     private boolean cargado = false;
+    private String idioma;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_sport);
         Bundle extras = getIntent().getExtras();
-        int sportId = extras.getInt("SportId"); //Recogemos el id devuelto por la actividad anterior para solicitar info sobre ese deporte
+        String sportId = extras.getString("SportId"); //Recogemos el id devuelto por la actividad anterior para solicitar info sobre ese deporte
+        idioma = extras.getString("Idioma");
         deporte = NetworkRequests.cargaDeportesXid(sportId);
-        deporte.setUrlDescEs("https://dl.dropboxusercontent.com/s/oulzgpgnq2ca1ly/KorfbalSpa.pdf?dl=0");
     }
     public void cargaDescripcion(View view){
-        download(deporte.getUrlDescEs());
-        //folder.delete();
+        System.out.println("Comprobando si "+idioma +" = es ");
+        if(idioma.equals("es")){
+            System.out.println(deporte.getUrlDescEs());//Aqui es null
+            download(deporte.getUrlDescEs());
+        }else if(idioma.equals("en")){
+            System.out.println(deporte.getUrlDescEs());
+            download(deporte.getUrlDescEn());
+        }
     }
-    public void cargaAdaptacion(){
-        showPdf();
+    public void cargaAdaptacion(View view){
+        System.out.println("Comprobando si "+idioma +" = es ");
+        if(idioma.equals("es")){
+            System.out.println("Dentro de ES ");
+            download(deporte.getUrlAdapEs());
+        }else if(idioma.equals("en")){
+            System.out.println("Dentro de EN ");
+            download(deporte.getUrlAdapEn());
+        }
     }
     public void cargaForo1(){
 
@@ -72,6 +86,7 @@ public class SelectedSportActivity extends AppCompatActivity {
 
     public void download(String url)
     {
+        System.out.println("En download url = "+url);
         new DownloadFile().execute(url, "read.pdf");
     }
 
@@ -101,7 +116,6 @@ public class SelectedSportActivity extends AppCompatActivity {
             String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
             File folder = new File(extStorageDirectory, "Mypdf");
             folder.mkdir();
-
             File pdfFile = new File(folder, fileName);
 
             try{

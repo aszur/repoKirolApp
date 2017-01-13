@@ -19,7 +19,7 @@ public class Downloader {
 
     public static void downloadFile(String fileUrl, File directory){
         try {
-
+            System.out.println("En downloader url = "+fileUrl);
             URL url = new URL(fileUrl);
             HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
             //urlConnection.setRequestMethod("GET");

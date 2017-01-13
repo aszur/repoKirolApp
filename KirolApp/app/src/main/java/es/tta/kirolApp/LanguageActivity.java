@@ -42,11 +42,13 @@ public class LanguageActivity extends AppCompatActivity {
                 Log.d("Estado", "En onClick por Java:. España");
                 cambiaIdioma("es");
                 Intent intent = new Intent(LanguageActivity.this, SportsActivity.class);
+                intent.putExtra("Idioma","es");
                 startActivity(intent);
             }else if(v.getId() == R.id.botonInglaterra){
                 Log.d("Estado", "En onClick por Java. Inglaterra");
                 cambiaIdioma("en");
                 Intent intent = new Intent(LanguageActivity.this, SportsActivity.class);
+                intent.putExtra("Idioma","en");
                 startActivity(intent);
             }
 

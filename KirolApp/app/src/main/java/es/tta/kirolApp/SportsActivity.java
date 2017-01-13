@@ -22,12 +22,16 @@ import es.tta.kirolApp.model.Pais;
 public class SportsActivity extends AppCompatActivity {
     protected List<Pais> listaPaises;
     protected List<Deporte> listaDeportes;
-
+    private String idDeporte="0";
+    private String idioma;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sports);
-        //Poblar spinners
+        Bundle extras = getIntent().getExtras();
+        idioma = extras.getString("Idioma");
+        System.out.println(idioma);
+
 
 
 
@@ -71,7 +75,6 @@ public class SportsActivity extends AppCompatActivity {
 
     }
     public void eligeDeporte(View view){
-        int idDeporte=0;
         Spinner deportes = (Spinner) findViewById(R.id.deporteSpinner);
         deportes.setVisibility(View.GONE);
         String deporteElegido = deportes.getSelectedItem().toString();
@@ -85,6 +88,7 @@ public class SportsActivity extends AppCompatActivity {
                 Log.d("Estado", "Dentro del for/if. IdDeporte"+idDeporte);
                 Intent intent = new Intent(SportsActivity.this,SelectedSportActivity.class);
                 intent.putExtra("SportId",idDeporte);
+                intent.putExtra("Idioma", idioma);
                 startActivity(intent);
             }
         }
@@ -112,8 +116,8 @@ public class SportsActivity extends AppCompatActivity {
         {
             if(select == 1){
                 listaDeportes = new ArrayList<Deporte>();
-                String id = obtieneId();
-                listaDeportes = NetworkRequests.cargaListaDeportes(id); // Recibe el id del pais del que quiere cargar los deportes
+                idDeporte = obtieneId();
+                listaDeportes = NetworkRequests.cargaListaDeportes(idDeporte); // Recibe el id del pais del que quiere cargar los deportes
                 for (Deporte deporte: listaDeportes) {
                     String sport = deporte.getNombre();
                     lista.add(sport);

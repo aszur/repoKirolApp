@@ -74,11 +74,12 @@ public class NetworkRequests {
         return deportes;
     }
 
-    public static DeporteXid cargaDeportesXid(int id){//Necesito algo para saber de qué idioma cargar los botones
+    public static DeporteXid cargaDeportesXid(String id){
         DeporteXid deporte = new DeporteXid();
         GetSportById gsbI = new GetSportById();
         try {
-            gsbI.execute(Integer.toString(id)).get();
+            deporte = gsbI.execute(id).get();
+            return deporte;
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
