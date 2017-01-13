@@ -13,6 +13,13 @@
         android:layout_height="wrap_content"
         android:text="Comentarista"/>
     <TextView
+        android:id="@+id/fechaComentario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/nombreComentarista"
+        android:layout_marginLeft="15dp"
+        android:text="Fecha"/>
+    <TextView
         android:id="@+id/comentario"
         android:layout_height="50dp"
         android:layout_width="230dp"

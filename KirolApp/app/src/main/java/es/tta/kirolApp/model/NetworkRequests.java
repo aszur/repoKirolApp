@@ -90,8 +90,29 @@ public class NetworkRequests {
 
     public static List<Comentario> cargaComentarios(String idForo){
         List<Comentario> listaComentarios = new ArrayList<Comentario>();
-        //listaComentarios = ;
+        AT_GetForumComments gfC = new AT_GetForumComments();
+        try {
+            listaComentarios = gfC.execute(idForo).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         return listaComentarios;
+    }
+
+    public static boolean enviaComentario(Comentario comentario){
+        boolean estado = false;
+        AT_PullComment pC = new AT_PullComment();
+        try {
+            estado = pC.execute(comentario).get();
+            System.out.println("Execute PullComment devuelve: "+estado);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return estado;
     }
 
 }

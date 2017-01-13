@@ -24,12 +24,14 @@ public class SportsActivity extends AppCompatActivity {
     protected List<Deporte> listaDeportes;
     private String idDeporte="0";
     private String idioma;
+    private String user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sports);
         Bundle extras = getIntent().getExtras();
         idioma = extras.getString("Idioma");
+        user = extras.getString("user");
         System.out.println(idioma);
 
 
@@ -89,6 +91,7 @@ public class SportsActivity extends AppCompatActivity {
                 Intent intent = new Intent(SportsActivity.this,SelectedSportActivity.class);
                 intent.putExtra("SportId",idDeporte);
                 intent.putExtra("Idioma", idioma);
+                intent.putExtra("user", user);
                 startActivity(intent);
             }
         }

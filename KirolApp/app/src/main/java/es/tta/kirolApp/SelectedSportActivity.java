@@ -25,6 +25,7 @@ public class SelectedSportActivity extends AppCompatActivity {
     private DeporteXid deporte;
     private boolean cargado = false;
     private String idioma;
+    private String user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +33,7 @@ public class SelectedSportActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         String sportId = extras.getString("SportId"); //Recogemos el id devuelto por la actividad anterior para solicitar info sobre ese deporte
         idioma = extras.getString("Idioma");
+        user = extras.getString("user");
         deporte = NetworkRequests.cargaDeportesXid(sportId);
     }
     public void cargaDescripcion(View view){
@@ -54,14 +56,24 @@ public class SelectedSportActivity extends AppCompatActivity {
             download(deporte.getUrlAdapEn());
         }
     }
-    public void cargaForo1(){
-
+    public void cargaForo1(View view){
+        Intent intent = new Intent(SelectedSportActivity.this, ForumActivity.class);
+        intent.putExtra("user", user );
+        System.out.println("IdForoBajo: "+deporte.getIdForoBajo());
+        intent.putExtra("idForo", deporte.getIdForoBajo());
+        startActivity(intent);
     }
-    public void cargaForo2(){
-
+    public void cargaForo2(View view){
+        Intent intent = new Intent(SelectedSportActivity.this, ForumActivity.class);
+        intent.putExtra("user", user );
+        intent.putExtra("idForo", deporte.getIdForoMedio());
+        startActivity(intent);
     }
-    public void cargaForo3(){
-
+    public void cargaForo3(View view) {
+        Intent intent = new Intent(SelectedSportActivity.this, ForumActivity.class);
+        intent.putExtra("user", user );
+        intent.putExtra("idForo", deporte.getIdForoAlto());
+        startActivity(intent);
     }
 
     /*public void showPdf()

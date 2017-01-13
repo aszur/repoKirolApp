@@ -18,13 +18,14 @@ import java.util.Locale;
 
 public class LanguageActivity extends AppCompatActivity {
     public final static String EXTRA_LOGIN = "es.tta.kirolApp.login";
+    private String usuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        String usuario = bundle.getString(EXTRA_LOGIN);
+        usuario = bundle.getString(EXTRA_LOGIN);
         ImageView banderaEsp = (ImageView) findViewById(R.id.botonEspana);
         ImageView banderaEn = (ImageView) findViewById(R.id.botonInglaterra);
         banderaEsp.setOnClickListener(toLanguage);
@@ -43,12 +44,14 @@ public class LanguageActivity extends AppCompatActivity {
                 cambiaIdioma("es");
                 Intent intent = new Intent(LanguageActivity.this, SportsActivity.class);
                 intent.putExtra("Idioma","es");
+                intent.putExtra("user",usuario);
                 startActivity(intent);
             }else if(v.getId() == R.id.botonInglaterra){
                 Log.d("Estado", "En onClick por Java. Inglaterra");
                 cambiaIdioma("en");
                 Intent intent = new Intent(LanguageActivity.this, SportsActivity.class);
                 intent.putExtra("Idioma","en");
+                intent.putExtra("user",usuario);
                 startActivity(intent);
             }
 

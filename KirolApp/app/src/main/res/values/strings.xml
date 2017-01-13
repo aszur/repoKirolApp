@@ -62,6 +62,10 @@
     <!-- ForumActivity -->
     <string name="introduceComentario">Introduzca su comentario</string>
     <string name="botonEnviaComentario">Comentar</string>
+    <string name="comentarioEnviado">Su comentario fue añadido</string>
+    <string name="comentarioNoEnviado">Error. Su comentario no fue añadido</string>
+
+
 
 
 </resources>
