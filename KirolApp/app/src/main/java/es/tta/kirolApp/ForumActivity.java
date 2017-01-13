@@ -33,7 +33,7 @@ public class ForumActivity extends AppCompatActivity {
         System.out.println("IdForo en forumActivity es:" +id);
         listaComentarios = NetworkRequests.cargaComentarios(Integer.toString(id));
         //FALTA CARGA COMENTARIOS AQUI
-        //cargaComentarios();
+        cargaComentarios();
     }
     //Revisr los adapters para cargar las listas de comentarios. layout creado ya con el elemento comentariolist.
     public void cargaComentarios(){
@@ -54,14 +54,20 @@ public class ForumActivity extends AppCompatActivity {
         Comentario comentario = new Comentario();
         comentario.setRemitente(user);
         comentario.setMensaje(mensaje);
+        System.out.println("--------------El mensaje a enviar es: "+comentario.getMensaje());
         comentario.setId(id);
         System.out.println("Comentario recogido es: "+comentario.getMensaje());
         boolean rp = NetworkRequests.enviaComentario(comentario);
         System.out.println("Envia comentario devuelve: "+rp);
         if (rp){
             Toast.makeText(this,R.string.comentarioEnviado, Toast.LENGTH_SHORT).show();
+            cargaComentarios();
+            finish();
+            startActivity(getIntent());
         }else{
             Toast.makeText(this,R.string.comentarioNoEnviado, Toast.LENGTH_SHORT).show();
+            finish();
+            startActivity(getIntent());
         }
 
     }
