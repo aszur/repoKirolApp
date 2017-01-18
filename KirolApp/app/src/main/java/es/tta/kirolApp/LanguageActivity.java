@@ -2,9 +2,11 @@ package es.tta.kirolApp;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -54,17 +56,17 @@ public class LanguageActivity extends AppCompatActivity {
                 intent.putExtra("user",usuario);
                 startActivity(intent);
             }
-
-
         }
     };
 
     private void cambiaIdioma(String idioma){
-        Locale locale = new Locale("idioma");
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getApplicationContext().getApplicationContext().getResources().updateConfiguration(config, null);
+        Locale myLocale = new Locale(idioma);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+
     }
 
 
