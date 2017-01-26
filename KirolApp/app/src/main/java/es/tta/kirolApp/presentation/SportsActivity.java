@@ -1,4 +1,4 @@
-package es.tta.kirolApp;
+package es.tta.kirolApp.presentation;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -30,12 +30,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.tta.kirolApp.model.Deporte;
-import es.tta.kirolApp.model.Pais;
+import es.tta.kirolApp.model.Sport;
+import es.tta.kirolApp.model.Country;
 
 public class SportsActivity extends AppCompatActivity {
-    protected List<Pais> listaPaises;
-    protected List<Deporte> listaDeportes;
+    protected List<Country> listaPaises;
+    protected List<Sport> listaDeportes;
     private String idDeporte="0";
     private String idPais ="0";
     private String idioma;
@@ -100,7 +100,7 @@ public class SportsActivity extends AppCompatActivity {
         Spinner deportes = (Spinner) findViewById(R.id.deporteSpinner);
         deportes.setVisibility(View.GONE);
         String deporteElegido = deportes.getSelectedItem().toString();
-        Log.d("Deporte escogido", deporteElegido);
+        Log.d("Sport escogido", deporteElegido);
         for(int i=0; i<listaDeportes.size() ; i++){
             Log.d("Estado", "Dentro del for");
             if(deporteElegido.equals(listaDeportes.get(i).getNombre())){
@@ -122,7 +122,7 @@ public class SportsActivity extends AppCompatActivity {
         final List<String> lista = new ArrayList<String>(); // Lista que se pasa al adapter
         if(select == 0)
         {
-            listaPaises = new ArrayList<Pais>();
+            listaPaises = new ArrayList<Country>();
             new AsyncTask<Void, Void, Void> () {
                 @Override
                 protected Void doInBackground(Void... params) {
@@ -133,7 +133,7 @@ public class SportsActivity extends AppCompatActivity {
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
-                    for (Pais pais: listaPaises) {
+                    for (Country pais: listaPaises) {
                         String ctry = pais.getNombre();
                         lista.add(ctry);
                     }
@@ -159,7 +159,7 @@ public class SportsActivity extends AppCompatActivity {
                     @Override
                     protected void onPostExecute(Void aVoid) {
                         super.onPostExecute(aVoid);
-                        for (Deporte deporte: listaDeportes) {
+                        for (Sport deporte: listaDeportes) {
                             String sport = deporte.getNombre();
                             lista.add(sport);
                         }
@@ -178,7 +178,7 @@ public class SportsActivity extends AppCompatActivity {
         Spinner sp = (Spinner)findViewById(R.id.paisSpinner);
         String pais = sp.getSelectedItem().toString();
         String id="";
-        for (Pais p:listaPaises) {
+        for (Country p:listaPaises) {
             if(p.getNombre().equals(pais)){
                 id = Integer.toString(p.getId());
                 System.out.println("El id del pais "+p.getNombre()+ " es: "+id);
@@ -188,10 +188,10 @@ public class SportsActivity extends AppCompatActivity {
     }
 
 
-    private List<Pais> cargaPaises(String idContinente){
+    private List<Country> cargaPaises(String idContinente){
         String respuesta ="";
         HttpURLConnection urlConnection = null;
-        List<Pais> paises = new ArrayList<Pais>();
+        List<Country> paises = new ArrayList<Country>();
         String surl = "http://194.30.12.79/getCountries.php?idContinente="+idContinente;
         try {
             URL url = new URL(surl);
@@ -206,7 +206,7 @@ public class SportsActivity extends AppCompatActivity {
                     JSONArray jr = new JSONArray(respuesta);
                     int size = jr.length();
                     for (int i = 0; i < size; i++) {
-                        Pais p = new Pais();
+                        Country p = new Country();
                         JSONObject jo = (JSONObject) jr.getJSONObject(i);
                         p.setId(jo.getInt("idPais"));
                         System.out.println("Id: " + p.getId());
@@ -228,10 +228,10 @@ public class SportsActivity extends AppCompatActivity {
         return paises;
     }
 
-    private List<Deporte> cargaListaDeportes(String idPais){
+    private List<Sport> cargaListaDeportes(String idPais){
         String respuesta ="";
         HttpURLConnection urlConnection = null;
-        List<Deporte> deportes = new ArrayList<Deporte>();
+        List<Sport> deportes = new ArrayList<Sport>();
         String surl = "http://194.30.12.79/getSportsByCountry.php?idPais="+idPais;
         System.out.println(surl);
         try {
@@ -247,7 +247,7 @@ public class SportsActivity extends AppCompatActivity {
                     JSONArray jr = new JSONArray(respuesta);
                     int size = jr.length();
                     for (int i = 0; i < size; i++) {
-                        Deporte d = new Deporte();
+                        Sport d = new Sport();
                         JSONObject jo = (JSONObject) jr.getJSONObject(i);
                         d.setId(jo.getInt("id"));
                         System.out.println("Id: " + d.getId());

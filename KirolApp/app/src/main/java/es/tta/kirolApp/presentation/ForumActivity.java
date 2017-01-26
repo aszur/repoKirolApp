@@ -1,4 +1,4 @@
-package es.tta.kirolApp;
+package es.tta.kirolApp.presentation;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -31,13 +31,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import es.tta.kirolApp.model.Comentario;
+import es.tta.kirolApp.model.Comment;
 import es.tta.kirolApp.model.CommentListAdapter;
-import es.tta.kirolApp.model.NetworkRequests;
 
 
 public class ForumActivity extends AppCompatActivity {
-    private List<Comentario> listaComentarios = new ArrayList<Comentario>();
+    protected List<Comment> listaComentarios;
     private String user;
     private int id;//id del foro
     @Override
@@ -49,18 +48,25 @@ public class ForumActivity extends AppCompatActivity {
         user = extras.getString("user"); //Recojo el usuario que podría comentar
         id = extras.getInt("idForo");
         System.out.println("IdForo en forumActivity es:" +id);
-        listaComentarios = NetworkRequests.cargaComentarios(Integer.toString(id));
         new AsyncTask<Void, Void, Void>(){
             @Override
             protected Void doInBackground(Void... params) {
+                System.out.println("Dentro del doInBack");
                 cargaComentariosAT(Integer.toString(id));
                 return null;
             }
-        };
-        cargaComentarios();
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                cargaComentarios();
+            }
+        }.execute();
+
     }
 
     public void cargaComentariosAT(String idForo){
+        System.out.println("En carga comentariosAT");
         String respuesta ="";
         HttpURLConnection urlConnection = null;
         String surl = "http://194.30.12.79/getMessagesByForum.php?forumID="+idForo;
@@ -69,6 +75,7 @@ public class ForumActivity extends AppCompatActivity {
             URL url = new URL(surl);
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == 200) {
+                listaComentarios = new ArrayList<Comment>();
                 InputStream in = urlConnection.getInputStream();
                 InputStreamReader isr = new InputStreamReader(in, "UTF-8");
                 BufferedReader br = new BufferedReader(isr);
@@ -78,7 +85,7 @@ public class ForumActivity extends AppCompatActivity {
                     JSONArray jr = new JSONArray(respuesta);
                     int size = jr.length();
                     for (int i = 0; i < size; i++) {
-                        Comentario com = new Comentario();
+                        Comment com = new Comment();
                         JSONObject jo = (JSONObject) jr.getJSONObject(i);
                         com.setId(jo.getInt("id"));
                         com.setFecha(jo.getString("fecha"));
@@ -123,12 +130,12 @@ public class ForumActivity extends AppCompatActivity {
         System.out.println("Estamos en envia comentario");
         EditText cuadroTexto = (EditText)findViewById(R.id.cuadroComentario);
         String mensaje = cuadroTexto.getText().toString();
-        final Comentario comentario = new Comentario();
+        final Comment comentario = new Comment();
         comentario.setRemitente(user);
         comentario.setMensaje(mensaje);
         System.out.println("--------------El mensaje a enviar es: "+comentario.getMensaje());
         comentario.setId(id);
-        System.out.println("Comentario recogido es: "+comentario.getMensaje());
+        System.out.println("Comment recogido es: "+comentario.getMensaje());
         //boolean rp = NetworkRequests.enviaComentario(comentario);
         new AsyncTask<Void, Void, Boolean>(){
             @Override
@@ -157,7 +164,7 @@ public class ForumActivity extends AppCompatActivity {
 
     }
 
-    public boolean pullComment(Comentario comentario){
+    public boolean pullComment(Comment comentario){
         boolean estado = false;
         String respuesta;
         HttpURLConnection urlConnection = null;
@@ -193,6 +200,7 @@ public class ForumActivity extends AppCompatActivity {
         }
         return estado;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

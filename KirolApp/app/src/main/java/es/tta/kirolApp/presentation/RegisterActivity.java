@@ -1,8 +1,6 @@
-package es.tta.kirolApp;
+package es.tta.kirolApp.presentation;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -124,7 +122,8 @@ public class RegisterActivity extends AppCompatActivity {
         HttpURLConnection urlConnection = null;
         String respuesta="";
         String surl = "http://194.30.12.79/putUser.php?nombre="+usuario.getNombre()+"&apodo="+usuario.getApodo()+"&apellido1="+usuario.getApellido1()+
-                "&apellido2="+usuario.getApellido2()+"&email="+usuario.getEmail()+"&clave="+usuario.getEmail();
+                "&apellido2="+usuario.getApellido2()+"&email="+usuario.getEmail()+"&clave="+usuario.getPwd();
+        System.out.println(surl);
         try {
             URL url = new URL(surl);
             urlConnection = (HttpURLConnection) url.openConnection();

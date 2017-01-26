@@ -21,7 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="es.tta.kirolApp.MainActivity"
+            android:name="es.tta.kirolApp.presentation.MainActivity"
             android:label="@string/app_name"> <!-- Aqui va el label de la app, el de la statusBar se pone dinamicamente -->
             <intent-filter android:label="@string/app_name">
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="es.tta.kirolApp.LanguageActivity"
+            android:name="es.tta.kirolApp.presentation.LanguageActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <!--
@@ -41,10 +41,10 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name="es.tta.kirolApp.RegisterActivity" />
-        <activity android:name="es.tta.kirolApp.SportsActivity" />
-        <activity android:name="es.tta.kirolApp.SelectedSportActivity" />
-        <activity android:name="es.tta.kirolApp.ForumActivity"></activity>
+        <activity android:name="es.tta.kirolApp.presentation.RegisterActivity" />
+        <activity android:name="es.tta.kirolApp.presentation.SportsActivity" />
+        <activity android:name="es.tta.kirolApp.presentation.SelectedSportActivity" />
+        <activity android:name="es.tta.kirolApp.presentation.ForumActivity"></activity>
     </application>
 
 </manifest>

@@ -20,11 +20,11 @@ import java.util.List;
 
 @SuppressLint("ViewHolder") public class CommentListAdapter extends BaseAdapter {
     protected Activity activity;
-    protected List<Comentario> comentarios;
+    protected List<Comment> comentarios;
     Context mcontext;
 
 
-    public CommentListAdapter(Activity activity, List<Comentario> comentarios, Context context){
+    public CommentListAdapter(Activity activity, List<Comment> comentarios, Context context){
         this.activity= activity;
         this.comentarios= comentarios;
         this.mcontext= context;
@@ -58,7 +58,7 @@ import java.util.List;
         //Asociar el layout de la lista que hemos creado.
         //Definimos un objeto a partir del array, vamos a cargar el contenido
         //de ese objeto en el view de la lista.
-        Comentario comentario= comentarios.get(position);
+        Comment comentario= comentarios.get(position);
         TextView nombre= (TextView)v.findViewById(R.id.nombreComentarista);
         nombre.setText(comentario.getRemitente());
         System.out.println("Paso por comentarista"+ nombre.getText());

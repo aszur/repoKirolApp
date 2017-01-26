@@ -1,4 +1,4 @@
-package es.tta.kirolApp;
+package es.tta.kirolApp.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;

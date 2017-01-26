@@ -4,7 +4,7 @@ package es.tta.kirolApp.model;
  * Created by asier on 2/01/17.
  */
 
-public class DeporteXid {
+public class SportById {
     private int idDeporte;
     private String nombre;
     private String urlDescEs;
@@ -19,7 +19,7 @@ public class DeporteXid {
     private int idForoMedio;
     private int idForoAlto;
 
-    public DeporteXid(/*int idDeporte, String nombre,
+    public SportById(/*int idDeporte, String nombre,
                       String urlDescEs, String urlDescEus,
                       String urlDescEn, String urlDescCat,
                       String urlAdapEs, String urlAdapEus,

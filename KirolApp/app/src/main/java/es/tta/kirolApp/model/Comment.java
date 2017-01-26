@@ -6,13 +6,13 @@ import java.util.Date;
  * Created by asier on 5/01/17.
  */
 
-public class Comentario {
+public class Comment {
     private int id;
     private String remitente;
     private String mensaje;
     private String fecha;
 
-    public Comentario() {
+    public Comment() {
     }
 
     public int getId() {

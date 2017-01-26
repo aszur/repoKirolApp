@@ -1,4 +1,4 @@
-package es.tta.kirolApp;
+package es.tta.kirolApp.presentation;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -28,13 +28,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import es.tta.kirolApp.model.Deporte;
-import es.tta.kirolApp.model.DeporteXid;
+import es.tta.kirolApp.model.SportById;
 import es.tta.kirolApp.model.FAT_Downloader;
 
 
 public class SelectedSportActivity extends AppCompatActivity {
-    private DeporteXid deporte;
+    private SportById deporte;
     private boolean cargado = false;
     private String idioma;
     private String user;
@@ -75,7 +74,7 @@ public class SelectedSportActivity extends AppCompatActivity {
                 respuesta = br.readLine();
                 System.out.println(respuesta);
                 try {
-                    deporte = new DeporteXid();
+                    deporte = new SportById();
                     JSONObject jo = new JSONObject(respuesta);
                     deporte.setNombre(jo.getString("nombre"));
                     System.out.println(deporte.getNombre());

@@ -4,11 +4,11 @@ package es.tta.kirolApp.model;
  * Created by asier on 2/01/17.
  */
 
-public class Pais {
+public class Sport {
     private String nombre;
     private int id;
 
-    public Pais() {
+    public Sport() {
 
     }
 
