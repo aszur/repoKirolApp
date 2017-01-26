@@ -35,7 +35,12 @@
     <string name="foroAlto">High Level Forum</string>
 
     <!-- Alertas o advertencias -->
-    <string name="wifiAdvice">We advise use WiFi to continue</string>
+    <string name="dialogo">Advise</string>
+    <string name="aceptar">Yes, please</string>
+    <string name="negar">No, thanks</string>
+    <string name="noConexion">No connection available</string>
+    <string name="wifiAdvice">We advise use WiFi to continue. do you want to enable it?</string>
+    <string name="wifiOk">Please, to improve the user experience, keep Wifi connection ON</string>
     <string name="errorRegistro">Could not complete the register</string>
     <string name="errorAcceso">Incorrect data</string>
     <string name="completeCampos">Complete all fields</string>

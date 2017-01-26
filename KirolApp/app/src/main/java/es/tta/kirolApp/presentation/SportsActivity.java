@@ -214,10 +214,11 @@ public class SportsActivity extends AppCompatActivity {
                         System.out.println("Id: " + p.getNombre());
                         paises.add(p);
                     }
-                    ;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                br.close();
+                urlConnection.disconnect();
             }
 
         } catch (MalformedURLException e) {
@@ -255,10 +256,11 @@ public class SportsActivity extends AppCompatActivity {
                         System.out.println("Id: " + d.getNombre());
                         deportes.add(d);
                     }
-                    ;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                br.close();
+                urlConnection.disconnect();
             }
 
         } catch (MalformedURLException e) {
@@ -268,9 +270,6 @@ public class SportsActivity extends AppCompatActivity {
         }
         return deportes;
     }
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

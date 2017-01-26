@@ -1,11 +1,18 @@
 package es.tta.kirolApp.presentation;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.docencia.kirolApp.R;
 
@@ -24,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle(R.string.app_name);
+
+        compruebaConexion();
+
     }
 
     public void accede(View view) { //Funcion llamada desde el view
@@ -67,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     estado = false;
                 }
+                br.close();
+                urlConnection.disconnect();
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -79,5 +91,36 @@ public class MainActivity extends AppCompatActivity {
     public void registrar(View view) {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
+    }
+    public void compruebaConexion(){
+        ConnectivityManager cM = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cM.getActiveNetworkInfo();
+        if(networkInfo != null && networkInfo.isConnected()){
+            if(networkInfo.getType() ==  1){
+                //Si la conexion es WIFI
+                Toast.makeText(this,getString(R.string.wifiOk), Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                //Si la conexion NO es WIFI
+                Toast.makeText(this,getString(R.string.wifiAdvice), Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle(R.string.dialogo);
+                builder.setMessage(R.string.wifiAdvice);
+                builder.setPositiveButton(R.string.aceptar, null);
+                builder.setNegativeButton(R.string.negar, null);
+                builder.show();
+            }
+        }
+        else
+        {
+            //Si no hay conexion
+            Toast.makeText(this,getString(R.string.noConexion), Toast.LENGTH_SHORT).show();
+        }
+    }
+    public boolean activaWifi(){
+        WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        wifi.setWifiEnabled(true);
+        return true;
     }
 }

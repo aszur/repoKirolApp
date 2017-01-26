@@ -110,9 +110,6 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }
             }.execute();
-
-
-
         }
 
     }
@@ -131,13 +128,14 @@ public class RegisterActivity extends AppCompatActivity {
                 InputStream in = urlConnection.getInputStream();
                 InputStreamReader isr = new InputStreamReader(in, "UTF-8");
                 BufferedReader br = new BufferedReader(isr);
-                //System.out.println("La respuesta es: "+br.readLine());
                 if ((respuesta = br.readLine()).equals("true")) {
                     System.out.println("La respuesta es: " + respuesta);
                     estado = true;
                 } else {
                     estado = false;
                 }
+                br.close();
+                urlConnection.disconnect();
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -167,24 +165,6 @@ public class RegisterActivity extends AppCompatActivity {
             System.out.println("Antes del toast de los campos");
             Log.d("Comprobando campos","Antes del toast de campos");
             Toast.makeText(this,getString(R.string.completeCampos), Toast.LENGTH_SHORT).show();
-           /* if(Tnombre.getText().equals("")){
-                Toast.makeText(this,getString(R.string.claveEsCorta), Toast.LENGTH_SHORT).show();
-            }
-            if(Tapodo.getText().equals("")){
-                Toast.makeText(this,getString(R.string.claveEsCorta), Toast.LENGTH_SHORT).show();
-            }
-            if(Tapellido1.getText().equals("")){
-                Toast.makeText(this,getString(R.string.claveEsCorta), Toast.LENGTH_SHORT).show();
-            }
-            if(Tapellido2.getText().equals("")){
-                Toast.makeText(this,getString(R.string.claveEsCorta), Toast.LENGTH_SHORT).show();
-            }
-            if(Tpwd.getText().equals("")){
-                Toast.makeText(this,getString(R.string.claveEsCorta), Toast.LENGTH_SHORT).show();
-            }
-            if(Temail.getText().equals("")){
-                Toast.makeText(this,getString(R.string.claveEsCorta), Toast.LENGTH_SHORT).show();
-            }*/
         }
         else{//Si los campos no estan vacios
             System.out.println("Campos completados. Comprobando si "+TrepPwd.getText().toString()+"="+Tpwd.getText().toString()+
@@ -249,30 +229,6 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    /*@Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case 0: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-
-                } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
-                return;
-            }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
-        }
-    }*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -35,7 +35,12 @@
     <string name="foroAlto">Foro nivel alto</string>
 
     <!-- Alertas o advertencias -->
-    <string name="wifiAdvice">Se recomienda activar Wifi para continuar</string>
+    <string name="dialogo">Consejo</string>
+    <string name="aceptar">Si, porfavor</string>
+    <string name="negar">No, gracias</string>
+    <string name="noConexion">No esta conectado a la red de datos</string>
+    <string name="wifiAdvice">Se recomienda activar Wifi para continuar. ¿Desea activarlo?</string>
+    <string name="wifiOk">Se recomienda mantener el wifi encendido</string>
     <string name="errorRegistro">No se pudo completar el registro</string>
     <string name="errorAcceso">Datos incorrectos</string>
     <string name="completeCampos">Complete todos los campos.</string>

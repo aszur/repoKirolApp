@@ -97,6 +97,8 @@ public class ForumActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                br.close();
+                urlConnection.disconnect();
             }
 
         } catch (MalformedURLException e) {
@@ -188,6 +190,8 @@ public class ForumActivity extends AppCompatActivity {
                         System.out.println("La respuesta es: " + respuesta);
                         estado = true;
                     }
+                    br.close();
+                    urlConnection.disconnect();
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
