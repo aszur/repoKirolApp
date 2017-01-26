@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
@@ -13,20 +14,27 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.docencia.kirolApp.R;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
-import es.tta.kirolApp.model.NetworkRequests;
 import es.tta.kirolApp.model.User;
 
 public class RegisterActivity extends AppCompatActivity {
-    //NetworkRequests solicitud = new NetworkRequests();
     Uri pictureUri;
     private static int MY_PERMISSIONS_REQUEST_CAMERA=0;
     public static final int PICTURE_REQUEST_CODE = 1;
@@ -73,22 +81,73 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     public void registrarUsuario(View v){
         if(compruebaCampos()){
             System.out.println("Campos comprobados. Vamos a registrar usuario.");
-            if(NetworkRequests.registra(usuario)){
-                Toast.makeText(this, R.string.userAdded,
-                        Toast.LENGTH_SHORT).show();
-                finish();
-            }else{
-                Toast.makeText(this, R.string.userNoAdded,
-                        Toast.LENGTH_SHORT).show();
-                finish();
-            }
+
+            new AsyncTask<Void, Void, Boolean>() {
+                @Override
+                protected Boolean doInBackground(Void... params) {
+                    return registra();
+                }
+
+                @Override
+                protected void onPostExecute(Boolean regStatus) {
+                    if(regStatus){
+                        Toast.makeText(RegisterActivity.this, R.string.userAdded,
+                                Toast.LENGTH_SHORT).show();
+                        finish();
+                    }else{
+                        Toast.makeText(RegisterActivity.this, R.string.userNoAdded,
+                                Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }
+            }.execute();
+
+
 
         }
 
     }
+
+    public boolean registra(){
+        boolean estado = false;
+        HttpURLConnection urlConnection = null;
+        String respuesta="";
+        String surl = "http://194.30.12.79/putUser.php?nombre="+usuario.getNombre()+"&apodo="+usuario.getApodo()+"&apellido1="+usuario.getApellido1()+
+                "&apellido2="+usuario.getApellido2()+"&email="+usuario.getEmail()+"&clave="+usuario.getEmail();
+        try {
+            URL url = new URL(surl);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            if (urlConnection.getResponseCode() == 200) {
+                InputStream in = urlConnection.getInputStream();
+                InputStreamReader isr = new InputStreamReader(in, "UTF-8");
+                BufferedReader br = new BufferedReader(isr);
+                //System.out.println("La respuesta es: "+br.readLine());
+                if ((respuesta = br.readLine()).equals("true")) {
+                    System.out.println("La respuesta es: " + respuesta);
+                    estado = true;
+                } else {
+                    estado = false;
+                }
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return estado;
+    }
+
     private boolean compruebaCampos(){
         boolean fields = false;
         Tnombre = (EditText)findViewById(R.id.regName);
@@ -190,23 +249,8 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(resultCode != Activity.RESULT_OK);
-        return;
-        /*switch (requestCode){
-            case READ_REQUEST_CODE:
-            case VIDEO_REQUEST_CODE:
-            case AUDIO_REQUEST_CODE:
-                sendFile(data.getData());
-                //break;
-            case PICTURE_REQUEST_CODE:
-                sendFile(pictureUri);
-                //break;
-        }*/
-    }
 
-    @Override
+    /*@Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -228,6 +272,22 @@ public class RegisterActivity extends AppCompatActivity {
 
             // other 'case' lines to check for other
             // permissions this app might request
+        }
+    }*/
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                // User chose exit
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
         }
     }
 }

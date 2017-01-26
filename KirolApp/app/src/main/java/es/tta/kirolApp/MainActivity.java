@@ -1,7 +1,7 @@
 package es.tta.kirolApp;
 
 import android.content.Intent;
-import android.net.NetworkRequest;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +10,14 @@ import android.widget.Toast;
 
 import com.example.docencia.kirolApp.R;
 
-import es.tta.kirolApp.model.NetworkRequests;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import es.tta.kirolApp.model.User;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,26 +30,53 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void accede(View view) { //Funcion llamada desde el view
-        Intent intent = new Intent(this, LanguageActivity.class);
-        String login = ((EditText) findViewById(R.id.nombreUsuario)).getText().toString();
-        String pwd = ((EditText) findViewById(R.id.claveUsuario)).getText().toString();
-        if (authenticate(login, pwd)) {
-            intent.putExtra(LanguageActivity.EXTRA_LOGIN, login);
-            startActivity(intent);
-        }
+        final String login = ((EditText) findViewById(R.id.nombreUsuario)).getText().toString();
+        final String pwd = ((EditText) findViewById(R.id.claveUsuario)).getText().toString();
+
+        new AsyncTask<Void,Void,Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                return authenticate(login, pwd);
+            }
+
+            @Override
+            protected void onPostExecute(Boolean auth) {
+                super.onPostExecute(auth);
+                if( auth ) {
+                    Intent intent = new Intent(MainActivity.this, LanguageActivity.class);
+                    intent.putExtra(LanguageActivity.EXTRA_LOGIN, login);
+                    startActivity(intent);
+                }
+            }
+        }.execute();
     }
     public boolean authenticate (String login, String pwd){
-        boolean comprobacion = false;
-        User usuario = new User();
-        usuario.setApodo(login);
-        usuario.setPwd(pwd);
-        if(NetworkRequests.checkUser(usuario)){
-            System.out.println("checUser devuelve true");
-            comprobacion = true;
-        }else{
-            Toast.makeText(this,R.string.errorAcceso, Toast.LENGTH_SHORT).show();
+        boolean estado = false;
+        String respuesta;
+        HttpURLConnection urlConnection = null;
+        String surl = "http://194.30.12.79/checkUser.php?&apodo="+login+"&clave="+pwd;
+        try {
+            URL url = new URL(surl);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            if (urlConnection.getResponseCode() == 200) {
+                InputStream in = urlConnection.getInputStream();
+
+                InputStreamReader isr = new InputStreamReader(in, "UTF-8");
+                BufferedReader br = new BufferedReader(isr);
+                //System.out.println("La respuesta es: "+br.readLine());
+                if ((respuesta = br.readLine()).equals("true")) {
+                    System.out.println("La respuesta es: " + respuesta);
+                    estado = true;
+                } else {
+                    estado = false;
+                }
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return comprobacion;
+        return estado;
     }
 
     public void registrar(View view) {

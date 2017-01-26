@@ -1,22 +1,16 @@
 package es.tta.kirolApp;
 
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.docencia.kirolApp.R;
 
-import java.util.Locale;
+import es.tta.kirolApp.model.Utils;
 
 public class LanguageActivity extends AppCompatActivity {
     public final static String EXTRA_LOGIN = "es.tta.kirolApp.login";
@@ -43,14 +37,15 @@ public class LanguageActivity extends AppCompatActivity {
             Log.d("Estado", "En onClick por Java");
             if(v.getId() == R.id.botonEspana){
                 Log.d("Estado", "En onClick por Java:. España");
-                cambiaIdioma("es");
+                Utils.cambiaIdioma("es",getResources());
+                Utils.cambiaIdioma("es",getResources());
                 Intent intent = new Intent(LanguageActivity.this, SportsActivity.class);
                 intent.putExtra("Idioma","es");
                 intent.putExtra("user",usuario);
                 startActivity(intent);
             }else if(v.getId() == R.id.botonInglaterra){
                 Log.d("Estado", "En onClick por Java. Inglaterra");
-                cambiaIdioma("en");
+                Utils.cambiaIdioma("en",getResources());
                 Intent intent = new Intent(LanguageActivity.this, SportsActivity.class);
                 intent.putExtra("Idioma","en");
                 intent.putExtra("user",usuario);
@@ -59,15 +54,7 @@ public class LanguageActivity extends AppCompatActivity {
         }
     };
 
-    private void cambiaIdioma(String idioma){
-        Locale myLocale = new Locale(idioma);
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        res.updateConfiguration(conf, dm);
 
-    }
 
 
 }

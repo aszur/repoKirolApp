@@ -5,7 +5,9 @@ package es.tta.kirolApp.model;
  */
 
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,6 +18,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class AT_CheckUser extends AsyncTask<User, Integer, Boolean>{
+    boolean estado=false;
+    protected Context context;
     @Override
     protected Boolean doInBackground(User... usuario) {
         boolean estado = false;
@@ -35,9 +39,9 @@ public class AT_CheckUser extends AsyncTask<User, Integer, Boolean>{
                 //System.out.println("La respuesta es: "+br.readLine());
                 if ((respuesta = br.readLine()).equals("true")) {
                     System.out.println("La respuesta es: " + respuesta);
-                    return true;
+                    estado = true;
                 } else {
-                    return false;
+                    estado = false;
                 }
             }
         } catch (MalformedURLException e) {
@@ -46,6 +50,10 @@ public class AT_CheckUser extends AsyncTask<User, Integer, Boolean>{
             e.printStackTrace();
         }
         return estado;
+    }
+
+    @Override
+    protected void onPostExecute(Boolean aBoolean) {
     }
 }
 

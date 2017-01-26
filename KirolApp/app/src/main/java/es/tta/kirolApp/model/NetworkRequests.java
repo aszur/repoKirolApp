@@ -57,8 +57,6 @@ public class NetworkRequests {
             e.printStackTrace();
         }
 
-
-        //String request = url + cont;
         return paises;
     }
     public static List<Deporte> cargaListaDeportes(String pais){

@@ -19,6 +19,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AT_GetForumComments extends AsyncTask<String, Integer, List<Comentario>>{
@@ -50,7 +51,7 @@ public class AT_GetForumComments extends AsyncTask<String, Integer, List<Comenta
                         com.setRemitente(jo.getString("emisor"));
                         comentarios.add(com);
                     }
-                    ;
+                    Collections.reverse(comentarios);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

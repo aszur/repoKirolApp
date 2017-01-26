@@ -1,9 +1,13 @@
 package es.tta.kirolApp;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,17 +16,28 @@ import android.widget.Spinner;
 
 import com.example.docencia.kirolApp.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import es.tta.kirolApp.model.Deporte;
-import es.tta.kirolApp.model.NetworkRequests;
 import es.tta.kirolApp.model.Pais;
 
 public class SportsActivity extends AppCompatActivity {
     protected List<Pais> listaPaises;
     protected List<Deporte> listaDeportes;
     private String idDeporte="0";
+    private String idPais ="0";
     private String idioma;
     private String user;
     @Override
@@ -33,11 +48,16 @@ public class SportsActivity extends AppCompatActivity {
         idioma = extras.getString("Idioma");
         user = extras.getString("user");
         System.out.println(idioma);
-
-
-
-
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     @Override
     protected void onResume(){
         super.onResume();
@@ -83,11 +103,10 @@ public class SportsActivity extends AppCompatActivity {
         Log.d("Deporte escogido", deporteElegido);
         for(int i=0; i<listaDeportes.size() ; i++){
             Log.d("Estado", "Dentro del for");
-            if(deporteElegido == listaDeportes.get(i).getNombre()){
-                i=listaDeportes.size();
+            if(deporteElegido.equals(listaDeportes.get(i).getNombre())){
                 Log.d("Estado", "Antes de asignar Id");
-               // idDeporte = listaDeportes.get(i).getId();
-                Log.d("Estado", "Dentro del for/if. IdDeporte"+idDeporte);
+                idDeporte = Integer.toString(listaDeportes.get(i).getId());
+                Log.d("Estado", "Dentro del for/if. IdDeporte "+idDeporte);
                 Intent intent = new Intent(SportsActivity.this,SelectedSportActivity.class);
                 intent.putExtra("SportId",idDeporte);
                 intent.putExtra("Idioma", idioma);
@@ -99,37 +118,58 @@ public class SportsActivity extends AppCompatActivity {
         boton.setVisibility(View.GONE);
 
     }
-    private void rellenaSpiner(Spinner sp, int select) {
-        List<String> lista = new ArrayList<String>();
+    private void rellenaSpiner(final Spinner sp, int select) {
+        final List<String> lista = new ArrayList<String>(); // Lista que se pasa al adapter
         if(select == 0)
         {
             listaPaises = new ArrayList<Pais>();
-            listaPaises = NetworkRequests.cargaPaises("1");
-            for (Pais pais: listaPaises) {
-                String ctry = pais.getNombre();
-                lista.add(ctry);
-            }
-            ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_spinner_item, lista);
-            adaptador
-                    .setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-            sp.setAdapter(adaptador);
+            new AsyncTask<Void, Void, Void> () {
+                @Override
+                protected Void doInBackground(Void... params) {
+                    listaPaises = cargaPaises("1");
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+                    for (Pais pais: listaPaises) {
+                        String ctry = pais.getNombre();
+                        lista.add(ctry);
+                    }
+                    ArrayAdapter<String> adaptador = new ArrayAdapter<String>(SportsActivity.this,
+                            android.R.layout.simple_spinner_item, lista);
+                    adaptador
+                            .setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+                    sp.setAdapter(adaptador);
+                }
+            }.execute();
         }
         else
         {
             if(select == 1){
-                listaDeportes = new ArrayList<Deporte>();
-                idDeporte = obtieneId();
-                listaDeportes = NetworkRequests.cargaListaDeportes(idDeporte); // Recibe el id del pais del que quiere cargar los deportes
-                for (Deporte deporte: listaDeportes) {
-                    String sport = deporte.getNombre();
-                    lista.add(sport);
-                }
-                ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this,
-                        android.R.layout.simple_spinner_item, lista);
-                adaptador
-                        .setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-                sp.setAdapter(adaptador);
+                idPais = obtieneId();
+                new AsyncTask<Void, Void, Void> () {
+                    @Override
+                    protected Void doInBackground(Void... params) {
+                        listaDeportes = cargaListaDeportes(idPais);
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        super.onPostExecute(aVoid);
+                        for (Deporte deporte: listaDeportes) {
+                            String sport = deporte.getNombre();
+                            lista.add(sport);
+                        }
+                        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(SportsActivity.this,
+                                android.R.layout.simple_spinner_item, lista);
+                        adaptador
+                                .setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+                        sp.setAdapter(adaptador);
+                    }
+                }.execute();
             }
 
         }
@@ -145,5 +185,106 @@ public class SportsActivity extends AppCompatActivity {
             }
         }
         return id;
+    }
+
+
+    private List<Pais> cargaPaises(String idContinente){
+        String respuesta ="";
+        HttpURLConnection urlConnection = null;
+        List<Pais> paises = new ArrayList<Pais>();
+        String surl = "http://194.30.12.79/getCountries.php?idContinente="+idContinente;
+        try {
+            URL url = new URL(surl);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            if (urlConnection.getResponseCode() == 200) {
+                InputStream in = urlConnection.getInputStream();
+                InputStreamReader isr = new InputStreamReader(in, "UTF-8");
+                BufferedReader br = new BufferedReader(isr);
+                respuesta = br.readLine();
+                //System.out.println(respuesta);
+                try {
+                    JSONArray jr = new JSONArray(respuesta);
+                    int size = jr.length();
+                    for (int i = 0; i < size; i++) {
+                        Pais p = new Pais();
+                        JSONObject jo = (JSONObject) jr.getJSONObject(i);
+                        p.setId(jo.getInt("idPais"));
+                        System.out.println("Id: " + p.getId());
+                        p.setNombre(jo.getString("nombre"));
+                        System.out.println("Id: " + p.getNombre());
+                        paises.add(p);
+                    }
+                    ;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return paises;
+    }
+
+    private List<Deporte> cargaListaDeportes(String idPais){
+        String respuesta ="";
+        HttpURLConnection urlConnection = null;
+        List<Deporte> deportes = new ArrayList<Deporte>();
+        String surl = "http://194.30.12.79/getSportsByCountry.php?idPais="+idPais;
+        System.out.println(surl);
+        try {
+            URL url = new URL(surl);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            if (urlConnection.getResponseCode() == 200) {
+                InputStream in = urlConnection.getInputStream();
+                InputStreamReader isr = new InputStreamReader(in, "UTF-8");
+                BufferedReader br = new BufferedReader(isr);
+                respuesta = br.readLine();
+                System.out.println(respuesta);
+                try {
+                    JSONArray jr = new JSONArray(respuesta);
+                    int size = jr.length();
+                    for (int i = 0; i < size; i++) {
+                        Deporte d = new Deporte();
+                        JSONObject jo = (JSONObject) jr.getJSONObject(i);
+                        d.setId(jo.getInt("id"));
+                        System.out.println("Id: " + d.getId());
+                        d.setNombre(jo.getString("nombre"));
+                        System.out.println("Id: " + d.getNombre());
+                        deportes.add(d);
+                    }
+                    ;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return deportes;
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                // User chose exit
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }
