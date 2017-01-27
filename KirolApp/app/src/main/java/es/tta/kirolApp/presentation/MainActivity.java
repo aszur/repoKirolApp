@@ -24,8 +24,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AlertDialog.OnClickListener {
 
+    public final static int BUTTON_POSITIVE = -1 ;
+    public final static int BUTTON_NEGATIVE = -2 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,11 +105,15 @@ public class MainActivity extends AppCompatActivity {
             else
             {
                 //Si la conexion NO es WIFI
-                Toast.makeText(this,getString(R.string.wifiAdvice), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this,getString(R.string.wifiAdvice), Toast.LENGTH_SHORT).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle(R.string.dialogo);
                 builder.setMessage(R.string.wifiAdvice);
-                builder.setPositiveButton(R.string.aceptar, null);
+                builder.setPositiveButton(R.string.aceptar, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        activaWifi();
+                    }
+                });
                 builder.setNegativeButton(R.string.negar, null);
                 builder.show();
             }
@@ -122,5 +128,19 @@ public class MainActivity extends AppCompatActivity {
         WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         wifi.setWifiEnabled(true);
         return true;
+    }
+
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        switch (which) {
+            case BUTTON_NEGATIVE:
+                // int which = -2
+                dialog.dismiss();
+                break;
+            case BUTTON_POSITIVE:
+                // int which = -1
+                dialog.dismiss();
+                break;
+        }
     }
 }
