@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements AlertDialog.OnCli
         getSupportActionBar().setTitle(R.string.app_name);
 
         compruebaConexion();
-
     }
 
     public void accede(View view) { //Funcion llamada desde el view

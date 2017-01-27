@@ -1,4 +1,4 @@
-package es.tta.kirolApp.model;
+package es.tta.kirolApp.model.classes;
 
 import java.util.Date;
 

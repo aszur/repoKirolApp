@@ -17,26 +17,31 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
         <RadioButton
+            android:id="@+id/radioEuropa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:text="@string/europa"/>
         <RadioButton
+            android:id="@+id/radioAfrica"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:text="@string/africa"/>
         <RadioButton
+            android:id="@+id/radioAmerica"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:text="@string/america"/>
         <RadioButton
+            android:id="@+id/radioAsia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:text="@string/Asia"/>
         <RadioButton
+            android:id="@+id/radioOceania"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"

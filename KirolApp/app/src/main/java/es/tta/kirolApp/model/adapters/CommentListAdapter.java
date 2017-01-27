@@ -1,4 +1,4 @@
-package es.tta.kirolApp.model;
+package es.tta.kirolApp.model.adapters;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -13,6 +13,8 @@ import com.example.docencia.kirolApp.R;
 
 
 import java.util.List;
+
+import es.tta.kirolApp.model.classes.Comment;
 
 /**
  * Created by asier on 13/01/17.

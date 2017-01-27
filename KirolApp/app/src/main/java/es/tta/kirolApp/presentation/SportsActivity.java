@@ -30,12 +30,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.tta.kirolApp.model.Sport;
-import es.tta.kirolApp.model.Country;
+import es.tta.kirolApp.model.classes.Sport;
+import es.tta.kirolApp.model.classes.Country;
 
 public class SportsActivity extends AppCompatActivity {
     protected List<Country> listaPaises;
     protected List<Sport> listaDeportes;
+    protected RadioGroup grupoContinentes;
     private String idDeporte="0";
     private String idPais ="0";
     private String idioma;
@@ -48,6 +49,8 @@ public class SportsActivity extends AppCompatActivity {
         idioma = extras.getString("Idioma");
         user = extras.getString("user");
         System.out.println(idioma);
+        grupoContinentes = (RadioGroup)findViewById(R.id.grupoContinentes);
+        grupoContinentes.check(R.id.radioEuropa);
     }
 
     @Override
@@ -68,16 +71,37 @@ public class SportsActivity extends AppCompatActivity {
     }
 
     public void eligeContinente(View view){
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.grupoContinentes);
-        radioGroup.setVisibility(View.GONE);
+        Spinner spPaises = (Spinner) findViewById(R.id.paisSpinner);
+        grupoContinentes.setVisibility(View.GONE);
+        switch (grupoContinentes.getCheckedRadioButtonId()){
+            case R.id.radioEuropa:
+                Log.d("Continente: ", "Europa");
+                rellenaSpiner(spPaises,0,0);//0
+                break;
+            case R.id.radioAfrica:
+                Log.d("Continente: ", "Africa");
+                rellenaSpiner(spPaises,0,0);//1
+                break;
+            case R.id.radioAmerica:
+                Log.d("Continente: ", "America");
+                rellenaSpiner(spPaises,0,0);//2
+                break;
+            case R.id.radioAsia:
+                Log.d("Continente: ", "Asia");
+                rellenaSpiner(spPaises,0,0);//3
+                break;
+            case R.id.radioOceania:
+                Log.d("Continente: ", "Oceania");
+                rellenaSpiner(spPaises,0,0);//4
+                break;
+        }
         Button boton = (Button) findViewById(R.id.botonEligeContinente);
         boton.setVisibility(View.GONE);
-        Spinner spPaises = (Spinner) findViewById(R.id.paisSpinner);
-        rellenaSpiner(spPaises,0);
         Spinner paises = (Spinner) findViewById(R.id.paisSpinner);
         paises.setVisibility(View.VISIBLE);
         Button boton2 = (Button) findViewById(R.id.botonEligePais);
         boton2.setVisibility(View.VISIBLE);
+
 
     }
     public void eligePais(View view){
@@ -88,7 +112,7 @@ public class SportsActivity extends AppCompatActivity {
         Button boton = (Button) findViewById(R.id.botonEligePais);
         boton.setVisibility(View.GONE);
         Spinner spDeportes = (Spinner) findViewById(R.id.deporteSpinner);
-        rellenaSpiner(spDeportes,1);
+        rellenaSpiner(spDeportes,1,0);
         Spinner deportes = (Spinner) findViewById(R.id.deporteSpinner);
         deportes.setVisibility(View.VISIBLE);
         Button boton2 = (Button) findViewById(R.id.botonEligeDeporte);
@@ -118,7 +142,7 @@ public class SportsActivity extends AppCompatActivity {
         boton.setVisibility(View.GONE);
 
     }
-    private void rellenaSpiner(final Spinner sp, int select) {
+    private void rellenaSpiner(final Spinner sp, int select, int ctry) { //ctry .> Variable para implementar resto de paises, no aplicada.
         final List<String> lista = new ArrayList<String>(); // Lista que se pasa al adapter
         if(select == 0)
         {

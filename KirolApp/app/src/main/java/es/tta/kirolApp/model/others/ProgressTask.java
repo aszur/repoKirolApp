@@ -1,4 +1,4 @@
-package es.tta.kirolApp.model;
+package es.tta.kirolApp.model.others;
 
 import android.app.ProgressDialog;
 import android.content.Context;

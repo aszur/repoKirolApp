@@ -1,14 +1,18 @@
-package es.tta.kirolApp.model;
+package es.tta.kirolApp.model.others;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -24,5 +28,4 @@ public class Utils{
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
     }
-
 }

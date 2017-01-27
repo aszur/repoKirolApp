@@ -28,8 +28,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import es.tta.kirolApp.model.SportById;
-import es.tta.kirolApp.model.FAT_Downloader;
+import es.tta.kirolApp.model.classes.SportById;
+import es.tta.kirolApp.model.others.FAT_Downloader;
 
 
 public class SelectedSportActivity extends AppCompatActivity {

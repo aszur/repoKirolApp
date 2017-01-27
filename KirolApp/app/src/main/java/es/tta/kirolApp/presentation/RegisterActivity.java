@@ -30,7 +30,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import es.tta.kirolApp.model.User;
+import es.tta.kirolApp.model.classes.User;
 
 public class RegisterActivity extends AppCompatActivity {
     Uri pictureUri;

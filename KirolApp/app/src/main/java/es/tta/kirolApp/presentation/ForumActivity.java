@@ -31,8 +31,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import es.tta.kirolApp.model.Comment;
-import es.tta.kirolApp.model.CommentListAdapter;
+import es.tta.kirolApp.model.classes.Comment;
+import es.tta.kirolApp.model.adapters.CommentListAdapter;
 
 
 public class ForumActivity extends AppCompatActivity {

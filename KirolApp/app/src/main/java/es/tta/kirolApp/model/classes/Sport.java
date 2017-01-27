@@ -1,14 +1,14 @@
-package es.tta.kirolApp.model;
+package es.tta.kirolApp.model.classes;
 
 /**
  * Created by asier on 2/01/17.
  */
 
-public class Country {
+public class Sport {
     private String nombre;
     private int id;
 
-    public Country() {
+    public Sport() {
 
     }
 

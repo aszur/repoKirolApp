@@ -1,4 +1,4 @@
-package es.tta.kirolApp.model;
+package es.tta.kirolApp.model.others;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,7 +14,7 @@ import java.net.URL;
  * Created by asier on 8/01/17.
  */
 
-public class FAT_Downloader {
+public class FAT_Downloader { //From Asynctask Downloader
     private static final int  MEGABYTE = 1024 * 1024;
 
     public static void downloadFile(String fileUrl, File directory){
