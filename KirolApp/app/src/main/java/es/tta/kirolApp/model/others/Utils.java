@@ -17,6 +17,7 @@ import java.util.Locale;
 
 /**
  * Created by asier on 18/01/17.
+ * Class with non clasificated methods.
  */
 
 public class Utils{

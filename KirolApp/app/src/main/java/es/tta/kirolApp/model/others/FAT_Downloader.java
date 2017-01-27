@@ -12,6 +12,7 @@ import java.net.URL;
 
 /**
  * Created by asier on 8/01/17.
+ * This class contains the method to obtain pdf files from source. Mehtod downloadFile is called from asynctask.
  */
 
 public class FAT_Downloader { //From Asynctask Downloader

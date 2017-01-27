@@ -32,6 +32,8 @@ import java.net.URL;
 
 import es.tta.kirolApp.model.classes.User;
 
+/*Activity that register users*/
+
 public class RegisterActivity extends AppCompatActivity {
     Uri pictureUri;
     private static int MY_PERMISSIONS_REQUEST_CAMERA=0;

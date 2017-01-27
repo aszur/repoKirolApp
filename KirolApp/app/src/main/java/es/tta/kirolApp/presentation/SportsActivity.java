@@ -33,6 +33,8 @@ import java.util.List;
 import es.tta.kirolApp.model.classes.Sport;
 import es.tta.kirolApp.model.classes.Country;
 
+/*Activity that shows all options for each sport*/
+
 public class SportsActivity extends AppCompatActivity {
     protected List<Country> listaPaises;
     protected List<Sport> listaDeportes;

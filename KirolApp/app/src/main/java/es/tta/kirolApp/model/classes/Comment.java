@@ -4,6 +4,7 @@ import java.util.Date;
 
 /**
  * Created by asier on 5/01/17.
+ * This is the class to instantiate objects of comments loaded from external source.
  */
 
 public class Comment {

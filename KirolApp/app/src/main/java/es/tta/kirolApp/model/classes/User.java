@@ -2,6 +2,7 @@ package es.tta.kirolApp.model.classes;
 
 /**
  * Created by asier on 2/01/17.
+ * Class used to manage user data.
  */
 
 public class User {

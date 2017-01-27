@@ -18,7 +18,9 @@ import es.tta.kirolApp.model.classes.Comment;
 
 /**
  * Created by asier on 13/01/17.
+ * This is the adapter used to populate the comments listview
  */
+
 
 @SuppressLint("ViewHolder") public class CommentListAdapter extends BaseAdapter {
     protected Activity activity;

@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.example.docencia.kirolApp.R;
 
 import es.tta.kirolApp.model.others.Utils;
-
+/*Activity to select the language*/
 public class LanguageActivity extends AppCompatActivity {
     public final static String EXTRA_LOGIN = "es.tta.kirolApp.login";
     private String usuario;

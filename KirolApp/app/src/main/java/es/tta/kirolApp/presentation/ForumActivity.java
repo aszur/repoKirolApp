@@ -33,7 +33,7 @@ import java.util.List;
 
 import es.tta.kirolApp.model.classes.Comment;
 import es.tta.kirolApp.model.adapters.CommentListAdapter;
-
+/*Activity whose shows the sports forums.*/
 
 public class ForumActivity extends AppCompatActivity {
     protected List<Comment> listaComentarios;

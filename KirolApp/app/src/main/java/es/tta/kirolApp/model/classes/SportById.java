@@ -2,6 +2,7 @@ package es.tta.kirolApp.model.classes;
 
 /**
  * Created by asier on 2/01/17.
+ * This is the class whose objects contains all data to be loaded in each sport activity.
  */
 
 public class SportById {
