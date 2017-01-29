@@ -4,9 +4,9 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +21,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -29,10 +30,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import es.tta.kirolApp.model.classes.SportById;
-import es.tta.kirolApp.model.others.FAT_Downloader;
 
+/*This activity shows all options for each sport*/
 
 public class SelectedSportActivity extends AppCompatActivity {
+    private static final int  MEGABYTE = 1024 * 1024;
     private SportById deporte;
     private boolean cargado = false;
     private String idioma;
@@ -159,8 +161,48 @@ public class SelectedSportActivity extends AppCompatActivity {
 
     public void download(String url)
     {
+        final String surl = url;
         System.out.println("En download url = "+url);
-        new DownloadFile().execute(url, "read.pdf");
+        new AsyncTask<Void , Void, Void> () {
+            @Override
+            protected Void doInBackground(Void... aVoid) {
+                String fileUrl = surl;   // -> url del archivo
+                String fileName = "read.pdf";  // -> nombre del archivo.pdf
+                String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+                File folder = new File(extStorageDirectory, "Mypdf");
+                folder.mkdir();
+                File pdfFile = new File(folder, fileName);
+                try {
+                    pdfFile.createNewFile();
+                    System.out.println("En downloader url = "+fileUrl);
+                    URL url = new URL(fileUrl);
+                    HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
+                    if(urlConnection.getResponseCode() == 200) {
+                        urlConnection.connect();
+                        InputStream inputStream = urlConnection.getInputStream();
+                        FileOutputStream fileOutputStream = new FileOutputStream(pdfFile);
+                        int totalSize = urlConnection.getContentLength();
+
+                        byte[] buffer = new byte[MEGABYTE];
+                        int bufferLength = 0;
+                        while((bufferLength = inputStream.read(buffer))>0 ){
+                            fileOutputStream.write(buffer, 0, bufferLength);
+                        }
+                        fileOutputStream.close();
+                        return null;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                showPdf();
+            }
+        }.execute();
     }
 
     public void showPdf()
@@ -180,33 +222,7 @@ public class SelectedSportActivity extends AppCompatActivity {
             Toast.makeText(SelectedSportActivity.this, "No Application available to view PDF", Toast.LENGTH_SHORT).show();
         }
     }
-    private class DownloadFile extends AsyncTask<String, Void, Void> {
 
-        @Override
-        protected Void doInBackground(String... strings) {
-            String fileUrl = strings[0];   // -> url del archivo
-            String fileName = strings[1];  // -> nombre del archivo.pdf
-            String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-            File folder = new File(extStorageDirectory, "Mypdf");
-            folder.mkdir();
-            File pdfFile = new File(folder, fileName);
-
-            try{
-                pdfFile.createNewFile();
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-            FAT_Downloader.downloadFile(fileUrl, pdfFile);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            showPdf();
-        }
-
-    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
