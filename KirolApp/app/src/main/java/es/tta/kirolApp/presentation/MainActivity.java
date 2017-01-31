@@ -50,10 +50,12 @@ public class MainActivity extends AppCompatActivity implements AlertDialog.OnCli
             @Override
             protected void onPostExecute(Boolean auth) {
                 super.onPostExecute(auth);
-                if( auth ) {
+                if( auth) {
                     Intent intent = new Intent(MainActivity.this, LanguageActivity.class);
                     intent.putExtra(LanguageActivity.EXTRA_LOGIN, login);
                     startActivity(intent);
+                }else{
+                    Toast.makeText(MainActivity.this, R.string.errorAcceso,Toast.LENGTH_SHORT);
                 }
             }
         }.execute();
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements AlertDialog.OnCli
         String respuesta;
         HttpURLConnection urlConnection = null;
         String surl = "http://194.30.12.79/checkUser.php?&apodo="+login+"&clave="+pwd;
+        System.out.println("URL: " +surl);
         try {
             URL url = new URL(surl);
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -71,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements AlertDialog.OnCli
 
                 InputStreamReader isr = new InputStreamReader(in, "UTF-8");
                 BufferedReader br = new BufferedReader(isr);
-                //System.out.println("La respuesta es: "+br.readLine());
+                //System.out.println("La respuesta es der: "+br.readLine());
                 if ((respuesta = br.readLine()).equals("true")) {
                     System.out.println("La respuesta es: " + respuesta);
                     estado = true;
